@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Browse curated small-breed puppies available through PawCierge.">
+  <title>Puppies | PawCierge</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="images/Logo/logo-32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="puppies">
+  <div data-site-header></div>
+  <main>
+    <section class="section page-hero section--dark">
+      <div class="section__head reveal">
+        <p class="eyebrow">Puppy marketplace</p>
+        <h1>Curated small-breed puppies</h1>
+        <p>Filter by breed, age, gender, and availability. Each profile includes concierge notes before you inquire.</p>
+      </div>
+    </section>
+
+    <section class="section section--dark">
+      <form class="catalog-controls reveal" id="catalogControls" aria-label="Puppy catalog filters">
+        <label><span>Breed</span><select name="breed"><option value="all">All breeds</option></select></label>
+        <label><span>Gender</span><select name="gender"><option value="all">Any gender</option><option value="Female">Female</option><option value="Male">Male</option></select></label>
+        <label><span>Age</span><select name="age"><option value="all">Any age</option><option value="under3">Under 3 months</option><option value="3to4">3-4 months</option><option value="over4">4+ months</option></select></label>
+        <label><span>Status</span><select name="status"><option value="all">All statuses</option><option value="available">Available</option><option value="reserved">Reserved</option></select></label>
+        <label><span>Sort</span><select name="sort"><option value="featured">Featured</option><option value="priceAsc">Price low to high</option><option value="priceDesc">Price high to low</option><option value="ageAsc">Youngest first</option></select></label>
+      </form>
+      <p class="catalog-count reveal" id="catalogCount" aria-live="polite"></p>
+      <div class="puppy-grid reveal" id="puppyGrid"></div>
+    </section>
+  </main>
+  <div data-site-footer></div>
+  <script src="data/puppies.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

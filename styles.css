@@ -41,6 +41,12 @@ body {
   line-height: 1.6;
   text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+body.page-ready {
+  opacity: 1;
 }
 
 img {
@@ -263,6 +269,11 @@ body::after {
   box-shadow: 0 0 28px rgba(245, 75, 100, 0.12);
 }
 
+.nav a.is-current {
+  color: var(--white);
+  background: rgba(245, 75, 100, 0.14);
+}
+
 .nav a:hover::after {
   opacity: 1;
   transform: scaleX(1);
@@ -282,6 +293,20 @@ body::after {
   align-items: end;
   overflow: hidden;
   padding-top: 118px;
+}
+
+.page-hero {
+  display: grid;
+  min-height: 58svh;
+  align-items: end;
+  padding-top: 138px;
+  background:
+    radial-gradient(circle at 78% 22%, rgba(247, 131, 97, 0.16), transparent 32%),
+    linear-gradient(180deg, rgba(17, 24, 39, 0.1), rgba(29, 38, 63, 0.28));
+}
+
+.page-hero .section__head {
+  margin-bottom: 0;
 }
 
 .hero::after,
@@ -462,6 +487,15 @@ h3 {
   display: block;
   margin-bottom: 8px;
   color: var(--text-soft);
+}
+
+.section-cta {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
 }
 
 .section--dark {
@@ -1231,6 +1265,11 @@ h3 {
   font-size: clamp(2.35rem, 4.6vw, 4.6rem);
 }
 
+.puppy-detail__content h1 {
+  margin-bottom: 0;
+  font-size: clamp(2.35rem, 4.8vw, 5rem);
+}
+
 .puppy-detail__content > p,
 .detail-info-grid p {
   color: var(--text-muted);
@@ -1353,6 +1392,14 @@ h3 {
 
 body.has-detail-open {
   overflow: hidden;
+}
+
+.puppy-page-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 0.94fr) minmax(0, 1.06fr);
+  gap: clamp(24px, 5vw, 62px);
+  align-items: center;
+  padding-top: 142px;
 }
 
 .lead-section::after {
@@ -1964,6 +2011,17 @@ body.has-detail-open {
     grid-template-columns: 1fr;
   }
 
+  .page-hero {
+    min-height: 46svh;
+    padding-top: 104px;
+  }
+
+  .puppy-page-hero {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding-top: 104px;
+  }
+
   .puppy-detail {
     align-items: start;
     padding: 10px;
@@ -2109,6 +2167,11 @@ body.has-detail-open {
 
   .hero {
     padding-top: 92px;
+  }
+
+  .page-hero,
+  .puppy-page-hero {
+    padding-top: 94px;
   }
 
   .facts-carousel {

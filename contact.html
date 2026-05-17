@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Contact PawCierge for a private puppy concierge inquiry.">
+  <title>Contact | PawCierge</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="images/Logo/logo-32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="contact">
+  <div data-site-header></div>
+  <main>
+    <section class="section page-hero section--dark">
+      <div class="section__head reveal">
+        <p class="eyebrow">Contact PawCierge</p>
+        <h1>Request a private puppy consultation</h1>
+        <p>Share your country, preferred contact method, budget, and puppy preferences. We usually begin with a curated shortlist.</p>
+      </div>
+    </section>
+    <section class="section lead-section">
+      <div class="lead-panel reveal">
+        <div class="lead-panel__copy">
+          <p class="eyebrow">Private inquiry</p>
+          <h2>Tell us what kind of puppy you are looking for</h2>
+          <p>Telegram and WhatsApp are the fastest channels for photos, videos, delivery planning, and next steps.</p>
+          <div class="detail-contact-row">
+            <a class="button button--glass" href="https://wa.me/" target="_blank" rel="noreferrer">WhatsApp</a>
+            <a class="button button--glass" href="https://t.me/" target="_blank" rel="noreferrer">Telegram</a>
+          </div>
+        </div>
+        <form class="lead-form" id="leadForm" novalidate>
+          <label><span>Name</span><input type="text" name="name" autocomplete="name" placeholder="Your name" required minlength="2"></label>
+          <label><span>Country</span><input type="text" name="country" autocomplete="country-name" placeholder="United States" required></label>
+          <fieldset class="contact-choice"><legend>Where should we contact you?</legend><label class="radio-card"><input type="radio" name="channel" value="WhatsApp" checked><span>WhatsApp</span></label><label class="radio-card"><input type="radio" name="channel" value="Telegram"><span>Telegram</span></label></fieldset>
+          <label><span>Telegram / WhatsApp</span><input type="text" name="contact" autocomplete="tel" placeholder="@username or +1 555 000 0000" required></label>
+          <label><span>Budget</span><select name="budget" required><option value="$3,000-$4,000">$3,000-$4,000</option><option value="$4,000-$6,000">$4,000-$6,000</option><option value="$6,000-$9,000">$6,000-$9,000</option><option value="$9,000+">$9,000+</option><option value="Private consultation">Private consultation</option></select></label>
+          <label><span>Preferred puppy</span><select name="preferredPuppy" id="preferredPuppySelect"><option value="Not sure yet">Not sure yet</option></select></label>
+          <label><span>Message</span><textarea name="message" rows="4" placeholder="Breed, age, timeline, delivery country"></textarea></label>
+          <button class="button button--primary" type="submit">Send request</button>
+          <p class="form-message" id="formMessage" role="status"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+  <div data-site-footer></div>
+  <script src="data/puppies.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

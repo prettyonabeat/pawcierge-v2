@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="PawCierge puppy nutrition guide and feeding recommendation tool.">
+  <title>Nutrition Guide | PawCierge</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="images/Logo/logo-32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="nutrition">
+  <div data-site-header></div>
+  <main>
+    <section class="section page-hero">
+      <div class="section__head reveal">
+        <p class="eyebrow">Nutrition Guide</p>
+        <h1>Gentle feeding guidance for small-breed puppies</h1>
+        <p>Use the match tool as an informational starting point, then confirm final diet decisions with your veterinarian.</p>
+      </div>
+    </section>
+    <section class="section nutrition-section">
+      <div class="nutrition-match reveal">
+        <form class="nutrition-form" id="nutritionForm">
+          <label><span>Breed</span><select name="breed" required><option value="Pomeranian">Pomeranian</option><option value="Yorkshire Terrier">Yorkshire Terrier</option><option value="Chihuahua">Chihuahua</option><option value="Maltipoo">Maltipoo</option><option value="Toy Poodle">Toy Poodle</option><option value="Other small breed">Other small breed</option></select></label>
+          <label><span>Puppy age</span><select name="age" required><option value="1-2 months">1-2 months</option><option value="2-4 months">2-4 months</option><option value="4-6 months">4-6 months</option><option value="6-12 months">6-12 months</option><option value="12+ months">12+ months</option></select></label>
+          <label><span>Current weight</span><select name="weight" required><option value="under 1 kg">under 1 kg</option><option value="1-2 kg">1-2 kg</option><option value="2-4 kg">2-4 kg</option><option value="4+ kg">4+ kg</option></select></label>
+          <label><span>Feeding type</span><select name="feeding" required><option value="dry food">dry food</option><option value="wet food">wet food</option><option value="mixed feeding">mixed feeding</option><option value="natural food">natural food</option><option value="not sure yet">not sure yet</option></select></label>
+          <fieldset class="nutrition-needs"><legend>Special needs</legend><label><input type="checkbox" name="needs" value="sensitive stomach"><span>sensitive stomach</span></label><label><input type="checkbox" name="needs" value="picky eater"><span>picky eater</span></label><label><input type="checkbox" name="needs" value="low appetite"><span>low appetite</span></label><label><input type="checkbox" name="needs" value="allergies"><span>allergies</span></label><label><input type="checkbox" name="needs" value="no special needs" checked><span>no special needs</span></label></fieldset>
+          <button class="button button--primary" type="submit">Get Nutrition Plan</button>
+        </form>
+        <article class="nutrition-result" id="nutritionResult" aria-live="polite" hidden>
+          <p class="eyebrow">Your gentle plan</p>
+          <h3 id="nutritionResultTitle">Small-breed puppy nutrition</h3>
+          <div class="nutrition-result__grid"><div><span>Recommended feeding style</span><strong id="nutritionStyle"></strong></div><div><span>Feeding frequency per day</span><strong id="nutritionFrequency"></strong></div></div>
+          <p id="nutritionPortion"></p><p id="nutritionHydration"></p><p id="nutritionWarning"></p>
+          <small>This recommendation is informational only and does not replace veterinary advice.</small>
+        </article>
+      </div>
+    </section>
+    <section class="section section--dark">
+      <div class="trust-grid reveal">
+        <article class="trust-card"><span>Water</span><h3>Hydration</h3><p>Fresh water should stay available at all times, especially after play or travel.</p></article>
+        <article class="trust-card"><span>Meals</span><h3>Small routines</h3><p>Young small-breed puppies usually do best with predictable, gentle meal rhythms.</p></article>
+        <article class="trust-card"><span>Slow</span><h3>Food changes</h3><p>Diet transitions should be gradual unless a veterinarian advises otherwise.</p></article>
+        <article class="trust-card"><span>Vet</span><h3>Safe guidance</h3><p>Allergies, appetite changes, or digestion issues should be discussed with a veterinarian.</p></article>
+      </div>
+    </section>
+  </main>
+  <div data-site-footer></div>
+  <script src="data/puppies.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

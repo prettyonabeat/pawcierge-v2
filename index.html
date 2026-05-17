@@ -3,19 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="PawCierge is a premium concierge service for selecting and delivering small-breed puppies.">
-  <title>PawCierge V2 - Premium Puppy Concierge</title>
+  <meta name="description" content="PawCierge is a premium puppy concierge service for private matching, delivery, and aftercare.">
+  <title>PawCierge - Premium Puppy Concierge</title>
   <link rel="icon" type="image/png" sizes="32x32" href="images/Logo/logo-32.png">
-  <link rel="icon" type="image/png" sizes="48x48" href="images/Logo/logo-48.png">
-  <link rel="icon" type="image/png" sizes="64x64" href="images/Logo/logo-64.png">
   <link rel="apple-touch-icon" sizes="180x180" href="images/Logo/logo-180.png">
-  <link rel="icon" type="image/png" sizes="512x512" href="images/Logo/logo-512.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body data-page="home">
   <div class="intro" id="intro" aria-label="PawCierge intro">
     <button class="intro__skip" type="button" id="skipIntro">Skip intro</button>
     <div class="intro__track" aria-hidden="true">
@@ -28,19 +25,7 @@
     </div>
   </div>
 
-  <header class="site-header" id="top">
-    <a class="brand" href="#top" aria-label="PawCierge">
-      <img class="brand__mark" src="images/Logo/logo-1.png" alt="">
-      <span>PawCierge</span>
-    </a>
-    <nav class="nav" aria-label="Main navigation">
-      <a href="#why">Why us</a>
-      <a href="#reviews">Reviews</a>
-      <a href="#puppies">Puppies</a>
-      <a href="#nutrition">Nutrition</a>
-      <a href="#lead">Request</a>
-    </nav>
-  </header>
+  <div data-site-header></div>
 
   <main>
     <section class="hero section" aria-labelledby="hero-title">
@@ -48,432 +33,98 @@
       <div class="hero__overlay"></div>
       <div class="hero__content reveal">
         <p class="eyebrow">International Puppy Concierge Service</p>
-        <h1 id="hero-title">PawCierge - premium puppy matching for your lifestyle</h1>
-      <p class="hero__text">We find healthy small-breed puppies through trusted partners and guide you from the first shortlist to a calm adjustment at home.</p>
-      <div class="hero__actions">
-        <a class="button button--primary" href="#puppies">View puppies</a>
-        <a class="button button--glass" href="#lead">Get a consultation</a>
-      </div>
+        <h1 id="hero-title">A private path to the right small-breed puppy</h1>
+        <p class="hero__text">PawCierge curates healthy, well-matched puppies through trusted partners and guides every step from shortlist to the first peaceful evening at home.</p>
+        <div class="hero__actions">
+          <a class="button button--primary" href="puppies.html">View puppies</a>
+          <a class="button button--glass" href="contact.html">Private consultation</a>
+        </div>
         <div class="hero__stats" aria-label="PawCierge concierge highlights">
           <span><strong>24h</strong> shortlist curation</span>
           <span><strong>Global</strong> delivery planning</span>
           <span><strong>1:1</strong> aftercare support</span>
         </div>
-    </div>
+      </div>
       <div class="hero__note reveal">
         <span>Working since 2024</span>
-        <strong>Personal guidance through the puppy's first peaceful evening at home</strong>
+        <strong>Premium matching for families who want clarity, care, and calm logistics.</strong>
       </div>
     </section>
 
-    <section class="section section--dark" id="why" aria-labelledby="why-title">
+    <section class="section section--dark" aria-labelledby="featured-title">
       <div class="section__head reveal">
-        <p class="eyebrow">Why choose us?</p>
-        <h2 id="why-title">A concierge approach instead of a random choice</h2>
+        <p class="eyebrow">Featured puppies</p>
+        <h2 id="featured-title">A first look at curated companions</h2>
+        <p>Explore a quiet preview, then open the full catalog for filtering and private profiles.</p>
+      </div>
+      <div class="puppy-grid reveal" id="puppyGrid" data-featured="true"></div>
+      <div class="section-cta reveal">
+        <a class="button button--primary" href="puppies.html">Open full catalog</a>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="why-title">
+      <div class="section__head reveal">
+        <p class="eyebrow">Why PawCierge</p>
+        <h2 id="why-title">Concierge guidance instead of guesswork</h2>
       </div>
       <div class="facts-carousel reveal" aria-label="PawCierge advantages">
-        <article class="fact-card">
-          <span class="fact-card__icon">↗</span>
-          <h3>Fast delivery</h3>
-          <p>We plan gentle logistics in advance, including routes, documents, and recommendations for the puppy's arrival.</p>
-        </article>
-        <article class="fact-card">
-          <span class="fact-card__icon">◆</span>
-          <h3>Trusted partners</h3>
-          <p>We work with breeders and nurseries where care conditions, origin, and daily routines are transparent.</p>
-        </article>
-        <article class="fact-card">
-          <span class="fact-card__icon">✦</span>
-          <h3>Health quality checks</h3>
-          <p>We review age, vaccinations, paperwork, and baseline health before any reservation is confirmed.</p>
-        </article>
-        <article class="fact-card">
-          <span class="fact-card__icon">♡</span>
-          <h3>After-purchase care</h3>
-          <p>We stay close during the adjustment period: routine, feeding, first nights, care, and gentle settling in.</p>
-        </article>
+        <article class="fact-card"><span class="fact-card__icon"></span><h3>Private matching</h3><p>We clarify lifestyle, temperament, timing, and breed preferences before recommending puppies.</p></article>
+        <article class="fact-card"><span class="fact-card__icon"></span><h3>Verified partners</h3><p>We prioritize transparent care conditions, trusted breeder relationships, and responsible handover.</p></article>
+        <article class="fact-card"><span class="fact-card__icon"></span><h3>Travel planning</h3><p>Routes, documents, comfort timing, and arrival routines are prepared with care.</p></article>
+        <article class="fact-card"><span class="fact-card__icon"></span><h3>Aftercare</h3><p>Feeding, first nights, grooming, and settling-in questions stay supported after delivery.</p></article>
       </div>
     </section>
 
-    <section class="section trust-section" aria-labelledby="trust-title">
+    <section class="section trust-section" aria-labelledby="delivery-preview-title">
       <div class="section__head reveal">
-        <p class="eyebrow">Delivery and trust</p>
-        <h2 id="trust-title">A protected path from first shortlist to first night home</h2>
+        <p class="eyebrow">Delivery preview</p>
+        <h2 id="delivery-preview-title">A calm international handover</h2>
+        <p>From documents to first-night guidance, the process is designed to feel protected and personal.</p>
       </div>
       <div class="trust-grid reveal">
-        <article class="trust-card">
-          <span>01</span>
-          <h3>Worldwide delivery</h3>
-          <p>Route planning, travel timing, and arrival guidance are prepared around the puppy's comfort.</p>
-        </article>
-        <article class="trust-card">
-          <span>02</span>
-          <h3>Health review</h3>
-          <p>Vaccination records, age, routine, and baseline wellness notes are reviewed before reservation.</p>
-        </article>
-        <article class="trust-card">
-          <span>03</span>
-          <h3>Verified partners</h3>
-          <p>We prioritize transparent care conditions, trusted breeder relationships, and responsible handover.</p>
-        </article>
-        <article class="trust-card">
-          <span>04</span>
-          <h3>Aftercare concierge</h3>
-          <p>Feeding, sleep routine, first walks, grooming, and settling-in questions stay supported after delivery.</p>
-        </article>
+        <article class="trust-card"><span>01</span><h3>Health review</h3><p>Records and readiness notes are checked before reservation.</p></article>
+        <article class="trust-card"><span>02</span><h3>Flight nanny</h3><p>Where possible, hand-carry options keep the trip gentle and supervised.</p></article>
+        <article class="trust-card"><span>03</span><h3>Arrival routine</h3><p>We prepare feeding, sleep, and first-evening guidance for the family.</p></article>
+        <article class="trust-card"><span>04</span><h3>Follow-up</h3><p>Aftercare support helps the puppy settle into a stable rhythm.</p></article>
       </div>
     </section>
 
-    <section class="section" id="reviews" aria-labelledby="reviews-title">
+    <section class="section" aria-labelledby="reviews-preview-title">
       <div class="section__head reveal">
-        <p class="eyebrow">Client reviews</p>
-        <h2 id="reviews-title">Stories of confident purchases and warm first meetings</h2>
+        <p class="eyebrow">Client notes</p>
+        <h2 id="reviews-preview-title">Confidence, clarity, and warm arrivals</h2>
       </div>
       <div class="review-shell reveal">
-        <button class="carousel-arrow carousel-arrow--prev" type="button" data-review-prev aria-label="Previous review">‹</button>
+        <button class="carousel-arrow carousel-arrow--prev" type="button" data-review-prev aria-label="Previous review"></button>
         <div class="reviews-track" id="reviewsTrack" aria-live="polite">
-          <article class="review-card is-active">
-            <img src="images/clients/client-1.svg" alt="Family with a puppy">
-            <div>
-              <div class="stars" aria-label="Rating 5 out of 5">★★★★★</div>
-              <p class="review-card__text">PawCierge helped us choose a puppy that fit our schedule and arranged delivery with real care. Documents and guidance were ready before arrival.</p>
-              <h3>Anna Morozova</h3>
-              <span>Dubai, UAE</span>
-            </div>
-          </article>
-          <article class="review-card">
-            <img src="images/clients/client-2.svg" alt="Client with a puppy">
-            <div>
-              <div class="stars" aria-label="Rating 5 out of 5">★★★★★</div>
-              <p class="review-card__text">They matched us with a miniature Maltipoo with the perfect temperament. The post-arrival support made the first week feel simple.</p>
-              <h3>Mark and Sophia</h3>
-              <span>London, United Kingdom</span>
-            </div>
-          </article>
-          <article class="review-card">
-            <img src="images/clients/client-3.svg" alt="Woman with a small puppy">
-            <div>
-              <div class="stars" aria-label="Rating 5 out of 5">★★★★★</div>
-              <p class="review-card__text">The service feels like having a private assistant: photos, videos, health checks, and thoughtful communication at every step.</p>
-              <h3>Elena Kim</h3>
-              <span>Seoul, South Korea</span>
-            </div>
-          </article>
+          <article class="review-card is-active"><img src="images/clients/client-1.svg" alt="Family with a puppy"><div><div class="stars" aria-label="Rating 5 out of 5"></div><p class="review-card__text">PawCierge turned a complicated international search into a calm, guided experience.</p><h3>Anna Morozova</h3><span>Dubai, UAE</span></div></article>
+          <article class="review-card"><img src="images/clients/client-2.svg" alt="Client with a puppy"><div><div class="stars" aria-label="Rating 5 out of 5"></div><p class="review-card__text">The shortlist felt thoughtful, not random. Delivery and aftercare were handled beautifully.</p><h3>Mark and Sophia</h3><span>London, UK</span></div></article>
         </div>
-        <button class="carousel-arrow carousel-arrow--next" type="button" data-review-next aria-label="Next review">›</button>
+        <button class="carousel-arrow carousel-arrow--next" type="button" data-review-next aria-label="Next review"></button>
         <div class="review-dots" id="reviewDots" aria-label="Review indicators"></div>
       </div>
-    </section>
-
-    <section class="section section--dark" id="puppies" aria-labelledby="puppies-title">
-      <div class="section__head reveal">
-        <p class="eyebrow">Available puppies</p>
-        <h2 id="puppies-title">Small breeds with a high level of care</h2>
-        <p>Browse curated puppies, filter by lifestyle needs, and open a private profile before making an inquiry.</p>
-      </div>
-      <form class="catalog-controls reveal" id="catalogControls" aria-label="Puppy catalog filters">
-        <label>
-          <span>Breed</span>
-          <select name="breed">
-            <option value="all">All breeds</option>
-          </select>
-        </label>
-        <label>
-          <span>Gender</span>
-          <select name="gender">
-            <option value="all">Any gender</option>
-            <option value="Female">Female</option>
-            <option value="Male">Male</option>
-          </select>
-        </label>
-        <label>
-          <span>Age</span>
-          <select name="age">
-            <option value="all">Any age</option>
-            <option value="under3">Under 3 months</option>
-            <option value="3to4">3-4 months</option>
-            <option value="over4">4+ months</option>
-          </select>
-        </label>
-        <label>
-          <span>Status</span>
-          <select name="status">
-            <option value="all">All statuses</option>
-            <option value="available">Available</option>
-            <option value="reserved">Reserved</option>
-          </select>
-        </label>
-        <label>
-          <span>Sort</span>
-          <select name="sort">
-            <option value="featured">Featured</option>
-            <option value="priceAsc">Price low to high</option>
-            <option value="priceDesc">Price high to low</option>
-            <option value="ageAsc">Youngest first</option>
-          </select>
-        </label>
-      </form>
-      <p class="catalog-count reveal" id="catalogCount" aria-live="polite"></p>
-      <div class="puppy-grid reveal" id="puppyGrid"></div>
-    </section>
-
-    <section class="section nutrition-section" id="nutrition" aria-labelledby="nutrition-title">
-      <div class="section__head reveal">
-        <p class="eyebrow">Puppy Nutrition Match</p>
-        <h2 id="nutrition-title">Find the Right Nutrition for Your Puppy</h2>
-        <p>Answer a few quick questions and get a gentle feeding recommendation based on your puppy's age, size and needs.</p>
-      </div>
-      <div class="nutrition-match reveal">
-        <form class="nutrition-form" id="nutritionForm">
-          <label>
-            <span>Breed</span>
-            <select name="breed" required>
-              <option value="Pomeranian">Pomeranian</option>
-              <option value="Yorkshire Terrier">Yorkshire Terrier</option>
-              <option value="Chihuahua">Chihuahua</option>
-              <option value="Maltipoo">Maltipoo</option>
-              <option value="Toy Poodle">Toy Poodle</option>
-              <option value="Other small breed">Other small breed</option>
-            </select>
-          </label>
-          <label>
-            <span>Puppy age</span>
-            <select name="age" required>
-              <option value="1-2 months">1-2 months</option>
-              <option value="2-4 months">2-4 months</option>
-              <option value="4-6 months">4-6 months</option>
-              <option value="6-12 months">6-12 months</option>
-              <option value="12+ months">12+ months</option>
-            </select>
-          </label>
-          <label>
-            <span>Current weight</span>
-            <select name="weight" required>
-              <option value="under 1 kg">under 1 kg</option>
-              <option value="1-2 kg">1-2 kg</option>
-              <option value="2-4 kg">2-4 kg</option>
-              <option value="4+ kg">4+ kg</option>
-            </select>
-          </label>
-          <label>
-            <span>Feeding type</span>
-            <select name="feeding" required>
-              <option value="dry food">dry food</option>
-              <option value="wet food">wet food</option>
-              <option value="mixed feeding">mixed feeding</option>
-              <option value="natural food">natural food</option>
-              <option value="not sure yet">not sure yet</option>
-            </select>
-          </label>
-          <fieldset class="nutrition-needs">
-            <legend>Special needs</legend>
-            <label>
-              <input type="checkbox" name="needs" value="sensitive stomach">
-              <span>sensitive stomach</span>
-            </label>
-            <label>
-              <input type="checkbox" name="needs" value="picky eater">
-              <span>picky eater</span>
-            </label>
-            <label>
-              <input type="checkbox" name="needs" value="low appetite">
-              <span>low appetite</span>
-            </label>
-            <label>
-              <input type="checkbox" name="needs" value="allergies">
-              <span>allergies</span>
-            </label>
-            <label>
-              <input type="checkbox" name="needs" value="no special needs" checked>
-              <span>no special needs</span>
-            </label>
-          </fieldset>
-          <button class="button button--primary" type="submit">Get Nutrition Plan</button>
-        </form>
-
-        <article class="nutrition-result" id="nutritionResult" aria-live="polite" hidden>
-          <p class="eyebrow">Your gentle plan</p>
-          <h3 id="nutritionResultTitle">Small-breed puppy nutrition</h3>
-          <div class="nutrition-result__grid">
-            <div>
-              <span>Recommended feeding style</span>
-              <strong id="nutritionStyle"></strong>
-            </div>
-            <div>
-              <span>Feeding frequency per day</span>
-              <strong id="nutritionFrequency"></strong>
-            </div>
-          </div>
-          <p id="nutritionPortion"></p>
-          <p id="nutritionHydration"></p>
-          <p id="nutritionWarning"></p>
-          <small>This recommendation is informational only and does not replace veterinary advice.</small>
-        </article>
+      <div class="section-cta reveal">
+        <a class="button button--glass" href="reviews.html">Read more reviews</a>
       </div>
     </section>
 
-    <section class="section lead-section" id="lead" aria-labelledby="lead-title">
+    <section class="section lead-section">
       <div class="lead-panel reveal">
         <div class="lead-panel__copy">
-          <p class="eyebrow">Personal request</p>
-          <h2 id="lead-title">Tell us what kind of puppy you are looking for</h2>
-          <p>We will clarify your lifestyle, preferred temperament, delivery timeline, and suggest suitable options.</p>
+          <p class="eyebrow">Private request</p>
+          <h2>Start with a curated shortlist</h2>
+          <p>Tell us about your ideal puppy and preferred timeline. We will guide the next step personally.</p>
         </div>
-        <form class="lead-form" id="leadForm" novalidate>
-          <label>
-            <span>Name</span>
-            <input type="text" name="name" autocomplete="name" placeholder="Your name" required minlength="2">
-          </label>
-          <label>
-            <span>Country</span>
-            <input type="text" name="country" autocomplete="country-name" placeholder="United States" required>
-          </label>
-          <fieldset class="contact-choice">
-            <legend>Where should we contact you?</legend>
-            <label class="radio-card">
-              <input type="radio" name="channel" value="WhatsApp" checked>
-              <span>WhatsApp</span>
-            </label>
-            <label class="radio-card">
-              <input type="radio" name="channel" value="Telegram">
-              <span>Telegram</span>
-            </label>
-          </fieldset>
-          <label>
-            <span>Telegram / WhatsApp</span>
-            <input type="text" name="contact" autocomplete="tel" placeholder="@username or +1 555 000 0000" required>
-          </label>
-          <label>
-            <span>Budget</span>
-            <select name="budget" required>
-              <option value="$3,000-$4,000">$3,000-$4,000</option>
-              <option value="$4,000-$6,000">$4,000-$6,000</option>
-              <option value="$6,000-$9,000">$6,000-$9,000</option>
-              <option value="$9,000+">$9,000+</option>
-              <option value="Private consultation">Private consultation</option>
-            </select>
-          </label>
-          <label>
-            <span>Preferred puppy</span>
-            <select name="preferredPuppy" id="preferredPuppySelect">
-              <option value="Not sure yet">Not sure yet</option>
-            </select>
-          </label>
-          <label>
-            <span>Request details or consultation notes</span>
-            <textarea name="message" rows="4" placeholder="Breed, age, timeline, delivery country"></textarea>
-          </label>
-          <button class="button button--primary" type="submit">Send request</button>
-          <p class="form-message" id="formMessage" role="status"></p>
-        </form>
-      </div>
-    </section>
-
-    <section class="section name-generator-section" aria-labelledby="name-generator-title">
-      <div class="name-generator reveal">
-        <div class="name-generator__copy">
-          <img class="name-generator__icon" src="images/Logo/lap.png" alt="" aria-hidden="true">
-          <p class="eyebrow">Puppy Name Generator</p>
-          <h2 id="name-generator-title">Find the perfect name for your puppy</h2>
-          <p>Generate cute, luxury and unique names for your future companion</p>
-        </div>
-        <div class="name-generator__widget" aria-live="polite">
-          <div class="name-generator__categories" role="group" aria-label="Name category">
-            <button class="name-generator__category is-active" type="button" data-name-category="boy">Boy</button>
-            <button class="name-generator__category" type="button" data-name-category="girl">Girl</button>
-            <button class="name-generator__category" type="button" data-name-category="luxury">Luxury</button>
-            <button class="name-generator__category" type="button" data-name-category="cute">Cute</button>
-            <button class="name-generator__category" type="button" data-name-category="tiny">Tiny</button>
-          </div>
-          <div class="name-generator__result" id="puppyNameResult">Archie</div>
-          <button class="button button--primary name-generator__button" type="button" id="generateNameButton">Generate name</button>
+        <div class="hero__actions">
+          <a class="button button--primary" href="contact.html">Request a consultation</a>
+          <a class="button button--glass" href="delivery.html">See the process</a>
         </div>
       </div>
     </section>
   </main>
 
-  <div class="puppy-detail" id="puppyDetail" role="dialog" aria-modal="true" aria-labelledby="puppyDetailTitle" hidden>
-    <div class="puppy-detail__backdrop" data-detail-close></div>
-    <article class="puppy-detail__panel" tabindex="-1">
-      <button class="puppy-detail__close" type="button" data-detail-close aria-label="Close puppy details">Close</button>
-      <div class="puppy-detail__gallery">
-        <img id="detailMainImage" src="images/puppies/luna.svg" alt="">
-        <div class="puppy-detail__thumbs" id="detailThumbs"></div>
-      </div>
-      <div class="puppy-detail__content">
-        <p class="eyebrow" id="detailStatus">Available</p>
-        <h2 id="puppyDetailTitle">Puppy profile</h2>
-        <p id="detailSummary"></p>
-        <dl class="puppy-detail__facts">
-          <div><dt>Breed</dt><dd id="detailBreed"></dd></div>
-          <div><dt>Age</dt><dd id="detailAge"></dd></div>
-          <div><dt>Gender</dt><dd id="detailGender"></dd></div>
-          <div><dt>Price</dt><dd id="detailPrice"></dd></div>
-        </dl>
-        <div class="trait-list" id="detailTraits"></div>
-        <div class="detail-info-grid">
-          <section>
-            <h3>Feeding info</h3>
-            <p id="detailFeeding"></p>
-          </section>
-          <section>
-            <h3>Vaccination info</h3>
-            <p id="detailVaccination"></p>
-          </section>
-          <section>
-            <h3>Delivery info</h3>
-            <p id="detailDelivery"></p>
-          </section>
-        </div>
-        <form class="detail-inquiry" id="detailInquiryForm">
-          <label>
-            <span>Your name</span>
-            <input type="text" name="name" placeholder="Your name" required>
-          </label>
-          <label>
-            <span>Contact</span>
-            <input type="text" name="contact" placeholder="WhatsApp or Telegram" required>
-          </label>
-          <label>
-            <span>Message</span>
-            <textarea name="message" rows="3" placeholder="Tell us your delivery country and timing"></textarea>
-          </label>
-          <button class="button button--primary" type="submit">Request this puppy</button>
-          <p class="form-message" id="detailFormMessage" role="status"></p>
-        </form>
-        <div class="detail-contact-row">
-          <a class="button button--glass" href="https://wa.me/" target="_blank" rel="noreferrer">WhatsApp</a>
-          <a class="button button--glass" href="https://t.me/" target="_blank" rel="noreferrer">Telegram</a>
-        </div>
-      </div>
-    </article>
-  </div>
-
-  <footer class="footer">
-    <div class="footer__brand">
-      <a class="brand" href="#top">
-        <img class="brand__mark" src="images/Logo/logo-1.png" alt="">
-        <span>PawCierge</span>
-      </a>
-      <p>A premium concierge service for matching, delivering, and helping small-breed puppies adjust at home.</p>
-    </div>
-    <div class="footer__links">
-      <a href="https://instagram.com/" target="_blank" rel="noreferrer">Instagram</a>
-      <a href="https://t.me/" target="_blank" rel="noreferrer">Telegram</a>
-      <a href="https://wa.me/" target="_blank" rel="noreferrer">WhatsApp</a>
-    </div>
-    <div class="footer__meta">
-      <p>International Puppy Concierge Service</p>
-      <p>Working since 2024</p>
-      <p>© 2026 PawCierge. All rights reserved.</p>
-      <nav aria-label="Service links">
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms of Service</a>
-        <a href="#lead">Contacts</a>
-      </nav>
-    </div>
-  </footer>
-
+  <div data-site-footer></div>
   <script src="data/puppies.js"></script>
   <script src="script.js"></script>
 </body>

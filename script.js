@@ -1,4 +1,68 @@
-// The intro runs once on page load and can be dismissed with Skip intro.
+// Shared shell: one header/footer for all static pages.
+const pageName = document.body.dataset.page || "home";
+
+function renderSiteShell() {
+  const headerHost = document.querySelector("[data-site-header]");
+  const footerHost = document.querySelector("[data-site-footer]");
+  const links = [
+    ["home", "Home", "index.html"],
+    ["puppies", "Puppies", "puppies.html"],
+    ["reviews", "Reviews", "reviews.html"],
+    ["delivery", "Delivery", "delivery.html"],
+    ["nutrition", "Nutrition", "nutrition.html"],
+    ["about", "About", "about.html"],
+    ["contact", "Contact", "contact.html"]
+  ];
+
+  if (headerHost) {
+    headerHost.innerHTML = `
+      <header class="site-header" id="top">
+        <a class="brand" href="index.html" aria-label="PawCierge">
+          <img class="brand__mark" src="images/Logo/logo-1.png" alt="">
+          <span>PawCierge</span>
+        </a>
+        <nav class="nav" aria-label="Main navigation">
+          ${links.map(([key, label, href]) => `<a class="${pageName === key ? "is-current" : ""}" href="${href}">${label}</a>`).join("")}
+        </nav>
+      </header>
+    `;
+  }
+
+  if (footerHost) {
+    footerHost.innerHTML = `
+      <footer class="footer">
+        <div class="footer__brand">
+          <a class="brand" href="index.html">
+            <img class="brand__mark" src="images/Logo/logo-1.png" alt="">
+            <span>PawCierge</span>
+          </a>
+          <p>A premium concierge service for matching, delivering, and helping small-breed puppies adjust at home.</p>
+        </div>
+        <div class="footer__links">
+          <a href="puppies.html">Available puppies</a>
+          <a href="delivery.html">Delivery process</a>
+          <a href="nutrition.html">Nutrition guide</a>
+          <a href="contact.html">Private request</a>
+        </div>
+        <div class="footer__meta">
+          <p>International Puppy Concierge Service</p>
+          <p>Working since 2024</p>
+          <p>&copy; 2026 PawCierge. All rights reserved.</p>
+          <nav aria-label="Social links">
+            <a href="https://instagram.com/" target="_blank" rel="noreferrer">Instagram</a>
+            <a href="https://t.me/" target="_blank" rel="noreferrer">Telegram</a>
+            <a href="https://wa.me/" target="_blank" rel="noreferrer">WhatsApp</a>
+          </nav>
+        </div>
+      </footer>
+    `;
+  }
+}
+
+renderSiteShell();
+window.requestAnimationFrame(() => document.body.classList.add("page-ready"));
+
+// The intro runs once on the home page and can be dismissed with Skip intro.
 const intro = document.querySelector("#intro");
 const skipIntroButton = document.querySelector("#skipIntro");
 
@@ -9,7 +73,7 @@ function closeIntro() {
 }
 
 window.addEventListener("load", () => {
-  window.setTimeout(closeIntro, 5200);
+  if (intro) window.setTimeout(closeIntro, 5200);
 });
 
 skipIntroButton?.addEventListener("click", closeIntro);
@@ -56,18 +120,30 @@ function populateCatalogFilters() {
 }
 
 function populatePreferredPuppies() {
-  if (!preferredPuppySelect) return;
-  getPuppies().forEach((puppy) => {
-    const option = document.createElement("option");
-    option.value = puppy.name;
-    option.textContent = `${puppy.name} - ${puppy.breed}`;
-    preferredPuppySelect.append(option);
+  const selects = [...document.querySelectorAll("#preferredPuppySelect, [data-preferred-puppy]")];
+  if (!selects.length) return;
+  const requested = new URLSearchParams(window.location.search).get("puppy");
+
+  selects.forEach((select) => {
+    const existing = new Set([...select.options].map((option) => option.value));
+    getPuppies().forEach((puppy) => {
+      if (existing.has(puppy.name)) return;
+      const option = document.createElement("option");
+      option.value = puppy.name;
+      option.textContent = `${puppy.name} - ${puppy.breed}`;
+      select.append(option);
+    });
+    if (requested && [...select.options].some((option) => option.value === requested)) {
+      select.value = requested;
+    }
   });
 }
 
 function getFilteredPuppies() {
   const puppies = [...getPuppies()];
-  if (!catalogControls) return puppies;
+  if (!catalogControls) {
+    return puppyGrid?.dataset.featured === "true" ? puppies.slice(0, 3) : puppies;
+  }
 
   const formData = new FormData(catalogControls);
   const breed = formData.get("breed");
@@ -129,12 +205,160 @@ function renderPuppies() {
           <div><dt>Status</dt><dd>${puppy.status}</dd></div>
         </dl>
         <div class="puppy-card__actions">
-          <button class="button button--glass" type="button" data-puppy-detail="${puppy.id}">Details</button>
-          <a class="button button--primary" href="#lead" data-puppy-contact="${puppy.name}">Contact</a>
+          <a class="button button--glass" href="puppy-${puppy.id}.html">Details</a>
+          <a class="button button--primary" href="contact.html?puppy=${encodeURIComponent(puppy.name)}" data-puppy-contact="${puppy.name}">Contact</a>
         </div>
       </div>
     </article>
   `).join("");
+}
+
+function getInquiryFormMarkup(preferredPuppy = "Not sure yet") {
+  return `
+    <form class="lead-form" data-lead-form novalidate>
+      <label>
+        <span>Name</span>
+        <input type="text" name="name" autocomplete="name" placeholder="Your name" required minlength="2">
+      </label>
+      <label>
+        <span>Country</span>
+        <input type="text" name="country" autocomplete="country-name" placeholder="United States" required>
+      </label>
+      <fieldset class="contact-choice">
+        <legend>Where should we contact you?</legend>
+        <label class="radio-card">
+          <input type="radio" name="channel" value="WhatsApp" checked>
+          <span>WhatsApp</span>
+        </label>
+        <label class="radio-card">
+          <input type="radio" name="channel" value="Telegram">
+          <span>Telegram</span>
+        </label>
+      </fieldset>
+      <label>
+        <span>Telegram / WhatsApp</span>
+        <input type="text" name="contact" autocomplete="tel" placeholder="@username or +1 555 000 0000" required>
+      </label>
+      <label>
+        <span>Budget</span>
+        <select name="budget" required>
+          <option value="$3,000-$4,000">$3,000-$4,000</option>
+          <option value="$4,000-$6,000">$4,000-$6,000</option>
+          <option value="$6,000-$9,000">$6,000-$9,000</option>
+          <option value="$9,000+">$9,000+</option>
+          <option value="Private consultation">Private consultation</option>
+        </select>
+      </label>
+      <label>
+        <span>Preferred puppy</span>
+        <select name="preferredPuppy" data-preferred-puppy>
+          <option value="${preferredPuppy}">${preferredPuppy}</option>
+          <option value="Not sure yet">Not sure yet</option>
+        </select>
+      </label>
+      <label>
+        <span>Message</span>
+        <textarea name="message" rows="4" placeholder="Breed, age, timeline, delivery country"></textarea>
+      </label>
+      <button class="button button--primary" type="submit">Send request</button>
+      <p class="form-message" role="status"></p>
+    </form>
+  `;
+}
+
+function bindGalleryThumbs() {
+  const mainImage = document.querySelector("#detailMainImage");
+  const thumbs = document.querySelector("#detailThumbs");
+  thumbs?.addEventListener("click", (event) => {
+    const button = event.target.closest("button[data-image]");
+    if (!button || !mainImage) return;
+    mainImage.src = button.dataset.image;
+    [...thumbs.children].forEach((thumb) => thumb.classList.toggle("is-active", thumb === button));
+  });
+}
+
+function renderPuppyProfile() {
+  const profile = document.querySelector("#puppyProfile");
+  if (!profile) return;
+  const puppyId = document.body.dataset.puppyId;
+  const puppy = getPuppies().find((item) => item.id === puppyId) || getPuppies()[0];
+  if (!puppy) return;
+  activeDetailPuppy = puppy;
+  document.title = `${puppy.name} - ${puppy.breed} | PawCierge`;
+
+  profile.innerHTML = `
+    <section class="section puppy-page-hero">
+      <div class="puppy-detail__gallery reveal">
+        <img id="detailMainImage" src="${puppy.gallery[0]}" alt="${puppy.name}, ${puppy.breed}">
+        <div class="puppy-detail__thumbs" id="detailThumbs">
+          ${puppy.gallery.map((image, index) => `
+            <button class="${index === 0 ? "is-active" : ""}" type="button" data-image="${image}" aria-label="View ${puppy.name} image ${index + 1}">
+              <img src="${image}" alt="" loading="lazy">
+            </button>
+          `).join("")}
+        </div>
+      </div>
+      <div class="puppy-detail__content reveal">
+        <p class="eyebrow">${puppy.status}</p>
+        <h1>${puppy.name} - ${puppy.breed}</h1>
+        <p>${puppy.summary}</p>
+        <dl class="puppy-detail__facts">
+          <div><dt>Breed</dt><dd>${puppy.breed}</dd></div>
+          <div><dt>Age</dt><dd>${puppy.age}</dd></div>
+          <div><dt>Gender</dt><dd>${puppy.gender}</dd></div>
+          <div><dt>Price</dt><dd>${puppy.price}</dd></div>
+        </dl>
+        <div class="trait-list">${puppy.traits.map((trait) => `<span>${trait}</span>`).join("")}</div>
+        <div class="hero__actions">
+          <a class="button button--primary" href="contact.html?puppy=${encodeURIComponent(puppy.name)}">Inquire about ${puppy.name}</a>
+          <a class="button button--glass" href="puppies.html">Back to puppies</a>
+        </div>
+      </div>
+    </section>
+    <section class="section section--dark">
+      <div class="detail-info-grid reveal">
+        <section>
+          <h3>Personality</h3>
+          <p>${puppy.summary}</p>
+        </section>
+        <section>
+          <h3>Breed info</h3>
+          <p>${puppy.breed} puppies are matched with attention to lifestyle, grooming rhythm, temperament, and travel readiness.</p>
+        </section>
+        <section>
+          <h3>Feeding info</h3>
+          <p>${puppy.feeding}</p>
+        </section>
+        <section>
+          <h3>Vaccination info</h3>
+          <p>${puppy.vaccination}</p>
+        </section>
+        <section>
+          <h3>Delivery info</h3>
+          <p>${puppy.delivery}</p>
+        </section>
+        <section>
+          <h3>Concierge support</h3>
+          <p>We prepare arrival routine, first-night guidance, and follow-up support after handover.</p>
+        </section>
+      </div>
+    </section>
+    <section class="section lead-section">
+      <div class="lead-panel reveal">
+        <div class="lead-panel__copy">
+          <p class="eyebrow">Private inquiry</p>
+          <h2>Request ${puppy.name}'s full profile</h2>
+          <p>Share your country, timeline, and preferred contact method. A PawCierge advisor will confirm availability and next steps.</p>
+        </div>
+        ${getInquiryFormMarkup(puppy.name)}
+      </div>
+    </section>
+  `;
+
+  bindGalleryThumbs();
+  populatePreferredPuppies();
+  bindLeadForms();
+  observeReveals(profile);
 }
 
 function setDetailImage(src, alt) {
@@ -347,7 +571,12 @@ const revealObserver = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.16 });
 
-document.querySelectorAll(".reveal").forEach((element) => revealObserver.observe(element));
+function observeReveals(scope = document) {
+  scope.querySelectorAll(".reveal").forEach((element) => revealObserver.observe(element));
+}
+
+renderPuppyProfile();
+observeReveals();
 
 // Puppy name generator.
 const puppyNames = {
@@ -430,36 +659,44 @@ function handlePuppyInquiry(inquiry) {
   return Promise.resolve({ ok: true });
 }
 
-const leadForm = document.querySelector("#leadForm");
-const formMessage = document.querySelector("#formMessage");
+function bindLeadForms() {
+  document.querySelectorAll("#leadForm, [data-lead-form]").forEach((form) => {
+    if (form.dataset.bound === "true") return;
+    form.dataset.bound = "true";
+    const message = form.querySelector(".form-message");
 
-leadForm?.addEventListener("submit", async (event) => {
-  event.preventDefault();
-  const formData = new FormData(leadForm);
-  const lead = Object.fromEntries(formData.entries());
-  const nameValid = lead.name && lead.name.trim().length >= 2;
-  const countryValid = lead.country && lead.country.trim().length >= 2;
-  const contactValid = lead.contact && lead.contact.trim().length >= 3;
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const formData = new FormData(form);
+      const lead = Object.fromEntries(formData.entries());
+      const nameValid = lead.name && lead.name.trim().length >= 2;
+      const countryValid = lead.country && lead.country.trim().length >= 2;
+      const contactValid = lead.contact && lead.contact.trim().length >= 3;
 
-  leadForm.classList.remove("has-error");
+      form.classList.remove("has-error");
 
-  if (!nameValid || !countryValid || !contactValid) {
-    leadForm.classList.add("has-error");
-    formMessage.textContent = "Please enter your name, country, and preferred contact.";
-    return;
-  }
+      if (!nameValid || !countryValid || !contactValid) {
+        form.classList.add("has-error");
+        if (message) message.textContent = "Please enter your name, country, and preferred contact.";
+        return;
+      }
 
-  await handleLeadSubmit({
-    ...lead,
-    name: lead.name.trim(),
-    country: lead.country.trim(),
-    contact: lead.contact.trim()
+      await handleLeadSubmit({
+        ...lead,
+        name: lead.name.trim(),
+        country: lead.country.trim(),
+        contact: lead.contact.trim()
+      });
+
+      form.reset();
+      const whatsapp = form.querySelector('input[name="channel"][value="WhatsApp"]');
+      if (whatsapp) whatsapp.checked = true;
+      if (message) message.textContent = "Thank you! We will contact you soon.";
+    });
   });
+}
 
-  leadForm.reset();
-  leadForm.querySelector('input[name="channel"][value="WhatsApp"]').checked = true;
-  formMessage.textContent = "Thank you! We will contact you soon.";
-});
+bindLeadForms();
 
 detailInquiryForm?.addEventListener("submit", async (event) => {
   event.preventDefault();
