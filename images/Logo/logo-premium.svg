@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title">
+  <title id="title">PawCierge premium Pomeranian paw logo</title>
+  <defs>
+    <linearGradient id="bg" x1="22" y1="14" x2="108" y2="116" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#F78361"/>
+      <stop offset="1" stop-color="#F54B64"/>
+    </linearGradient>
+    <linearGradient id="mark" x1="36" y1="28" x2="90" y2="100" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFF4D8"/>
+      <stop offset="0.58" stop-color="#F7DCA0"/>
+      <stop offset="1" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <filter id="softShadow" x="-25%" y="-25%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="#8F2434" flood-opacity="0.22"/>
+    </filter>
+  </defs>
+  <rect width="128" height="128" rx="35" fill="url(#bg)"/>
+  <path d="M26 90C37 104 52 111 64 111C76 111 91 104 102 90" fill="none" stroke="#FFF6DF" stroke-width="3.6" stroke-linecap="round" opacity="0.34"/>
+  <g filter="url(#softShadow)">
+    <path d="M64 45C78 45 88 54 88 69C88 84 78 95 64 95C50 95 40 84 40 69C40 54 50 45 64 45Z" fill="url(#mark)"/>
+    <path d="M64 56C72 56 78 62 78 70C78 79 72 85 64 85C56 85 50 79 50 70C50 62 56 56 64 56Z" fill="#F78361" opacity="0.14"/>
+    <ellipse cx="36" cy="51" rx="10.5" ry="14" transform="rotate(-24 36 51)" fill="url(#mark)"/>
+    <ellipse cx="55" cy="34" rx="10.5" ry="15" transform="rotate(-8 55 34)" fill="url(#mark)"/>
+    <ellipse cx="73" cy="34" rx="10.5" ry="15" transform="rotate(8 73 34)" fill="url(#mark)"/>
+    <ellipse cx="92" cy="51" rx="10.5" ry="14" transform="rotate(24 92 51)" fill="url(#mark)"/>
+  </g>
+  <path d="M48 63C55 55 73 55 80 63" fill="none" stroke="#FFFDF3" stroke-width="3.4" stroke-linecap="round" opacity="0.72"/>
+  <path d="M57 74C60 77 68 77 71 74" fill="none" stroke="#B94844" stroke-width="3" stroke-linecap="round" opacity="0.36"/>
+  <circle cx="58" cy="66" r="2.4" fill="#7B2A35" opacity="0.42"/>
+  <circle cx="70" cy="66" r="2.4" fill="#7B2A35" opacity="0.42"/>
+  <path d="M42 98C52 104 76 104 86 98" fill="none" stroke="#FFF6DF" stroke-width="2.4" stroke-linecap="round" opacity="0.45"/>
+</svg>
