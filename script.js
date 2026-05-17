@@ -7,12 +7,14 @@ function renderSiteShell() {
   const links = [
     ["home", "Home", "index.html"],
     ["puppies", "Puppies", "puppies.html"],
+    ["details", "Puppy Details", "puppy-luna.html"],
     ["reviews", "Reviews", "reviews.html"],
     ["delivery", "Delivery", "delivery.html"],
-    ["nutrition", "Nutrition", "nutrition.html"],
+    ["nutrition", "Nutrition Guide", "nutrition.html"],
     ["about", "About", "about.html"],
     ["contact", "Contact", "contact.html"]
   ];
+  const desktopLinks = links.filter(([key]) => key !== "details");
 
   if (headerHost) {
     headerHost.innerHTML = `
@@ -22,8 +24,30 @@ function renderSiteShell() {
           <span>PawCierge</span>
         </a>
         <nav class="nav" aria-label="Main navigation">
-          ${links.map(([key, label, href]) => `<a class="${pageName === key ? "is-current" : ""}" href="${href}">${label}</a>`).join("")}
+          ${desktopLinks.map(([key, label, href]) => `<a class="${pageName === key ? "is-current" : ""}" href="${href}">${label}</a>`).join("")}
         </nav>
+        <button class="menu-toggle" type="button" aria-label="Open mobile menu" aria-expanded="false" aria-controls="mobileMenu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+          <button class="mobile-menu__backdrop" type="button" aria-label="Close mobile menu" data-menu-close></button>
+          <aside class="mobile-menu__panel" aria-label="Mobile navigation">
+            <div class="mobile-menu__top">
+              <a class="brand" href="index.html" aria-label="PawCierge">
+                <img class="brand__mark" src="images/Logo/logo-1.png" alt="">
+                <span>PawCierge</span>
+              </a>
+              <button class="mobile-menu__close" type="button" aria-label="Close mobile menu" data-menu-close></button>
+            </div>
+            <nav class="mobile-menu__nav" aria-label="Mobile navigation links">
+              ${links.map(([key, label, href]) => `<a class="${pageName === key || (key === "details" && document.body.dataset.puppyId) ? "is-current" : ""}" href="${href}">${label}</a>`).join("")}
+            </nav>
+            <a class="button button--primary mobile-menu__cta" href="contact.html">Find My Puppy</a>
+            <p>Private puppy matching, delivery planning, and first-week aftercare in one calm concierge experience.</p>
+          </aside>
+        </div>
       </header>
     `;
   }
@@ -60,6 +84,38 @@ function renderSiteShell() {
 }
 
 renderSiteShell();
+
+const menuToggle = document.querySelector(".menu-toggle");
+const mobileMenu = document.querySelector("#mobileMenu");
+const mobileMenuPanel = document.querySelector(".mobile-menu__panel");
+const menuCloseControls = document.querySelectorAll("[data-menu-close]");
+
+function setMobileMenu(open) {
+  if (!mobileMenu || !menuToggle) return;
+  mobileMenu.classList.toggle("is-open", open);
+  mobileMenu.setAttribute("aria-hidden", String(!open));
+  menuToggle.setAttribute("aria-expanded", String(open));
+  menuToggle.setAttribute("aria-label", open ? "Close mobile menu" : "Open mobile menu");
+  document.body.classList.toggle("has-menu-open", open);
+  if (open) mobileMenuPanel?.focus();
+}
+
+menuToggle?.addEventListener("click", () => {
+  setMobileMenu(menuToggle.getAttribute("aria-expanded") !== "true");
+});
+
+menuCloseControls.forEach((control) => {
+  control.addEventListener("click", () => setMobileMenu(false));
+});
+
+mobileMenu?.querySelectorAll("a").forEach((link) => {
+  link.addEventListener("click", () => setMobileMenu(false));
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") setMobileMenu(false);
+});
+
 window.requestAnimationFrame(() => document.body.classList.add("page-ready"));
 
 // The intro runs once on the home page and can be dismissed with Skip intro.

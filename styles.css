@@ -279,6 +279,178 @@ body::after {
   transform: scaleX(1);
 }
 
+.menu-toggle {
+  display: none;
+  width: 46px;
+  height: 46px;
+  place-items: center;
+  padding: 0;
+  cursor: pointer;
+  background: rgba(17, 24, 39, 0.34);
+  border: 1px solid var(--line);
+  border-radius: 15px;
+  box-shadow: 0 14px 36px rgba(17, 24, 39, 0.22);
+}
+
+.menu-toggle span {
+  display: block;
+  width: 18px;
+  height: 2px;
+  margin: 3px 0;
+  background: var(--white);
+  border-radius: 999px;
+  transition: transform 0.28s ease, opacity 0.28s ease;
+}
+
+.menu-toggle[aria-expanded="true"] span:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.menu-toggle[aria-expanded="true"] span:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-toggle[aria-expanded="true"] span:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  justify-items: end;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.mobile-menu__backdrop {
+  position: fixed;
+  inset: 0;
+  padding: 0;
+  cursor: pointer;
+  background: rgba(5, 8, 18, 0);
+  border: 0;
+  transition: background 0.28s ease;
+}
+
+.mobile-menu__panel {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  align-content: start;
+  gap: 20px;
+  width: min(390px, calc(100vw - 20px));
+  height: calc(100svh - 20px);
+  margin: 10px;
+  padding: 18px;
+  overflow-y: auto;
+  color: var(--white);
+  background:
+    radial-gradient(circle at 12% 0%, rgba(247, 131, 97, 0.16), transparent 34%),
+    linear-gradient(145deg, rgba(29, 38, 63, 0.96), rgba(17, 24, 39, 0.9));
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 24px;
+  box-shadow: 0 32px 110px rgba(0, 0, 0, 0.56);
+  backdrop-filter: blur(24px);
+  transform: translateX(24px);
+  opacity: 0;
+  outline: 0;
+  transition: transform 0.32s ease, opacity 0.28s ease;
+}
+
+.mobile-menu.is-open {
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.mobile-menu.is-open .mobile-menu__backdrop {
+  background: rgba(5, 8, 18, 0.72);
+}
+
+.mobile-menu.is-open .mobile-menu__panel {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.mobile-menu__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.mobile-menu__close {
+  position: relative;
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  cursor: pointer;
+  background: rgba(17, 24, 39, 0.42);
+  border: 1px solid var(--line);
+  border-radius: 15px;
+}
+
+.mobile-menu__close::before,
+.mobile-menu__close::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 18px;
+  height: 2px;
+  content: "";
+  background: var(--white);
+  border-radius: 999px;
+}
+
+.mobile-menu__close::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.mobile-menu__close::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.mobile-menu__nav {
+  display: grid;
+  gap: 8px;
+}
+
+.mobile-menu__nav a {
+  display: flex;
+  align-items: center;
+  min-height: 54px;
+  padding: 0 16px;
+  color: var(--text-soft);
+  font-weight: 800;
+  background: rgba(17, 24, 39, 0.34);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 16px;
+  transition: color 0.25s ease, background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+}
+
+.mobile-menu__nav a:hover,
+.mobile-menu__nav a.is-current {
+  color: var(--white);
+  background: rgba(245, 75, 100, 0.16);
+  border-color: var(--line-hot);
+}
+
+.mobile-menu__cta {
+  width: 100%;
+}
+
+.mobile-menu p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.92rem;
+}
+
+body.has-menu-open {
+  overflow: hidden;
+  touch-action: none;
+}
+
 .section {
   position: relative;
   width: 100%;
@@ -1777,6 +1949,10 @@ body.has-detail-open {
     display: none;
   }
 
+  .menu-toggle {
+    display: grid;
+  }
+
   .hero__note {
     position: relative;
     right: auto;
@@ -2140,6 +2316,7 @@ body.has-detail-open {
   .trust-card:hover,
   .puppy-card:hover,
   .carousel-arrow:hover,
+  .mobile-menu__nav a:hover,
   .name-generator__category:hover {
     transform: none;
   }
