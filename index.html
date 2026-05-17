@@ -37,6 +37,7 @@
       <a href="#why">Why us</a>
       <a href="#reviews">Reviews</a>
       <a href="#puppies">Puppies</a>
+      <a href="#nutrition">Nutrition</a>
       <a href="#lead">Request</a>
     </nav>
   </header>
@@ -48,12 +49,17 @@
       <div class="hero__content reveal">
         <p class="eyebrow">International Puppy Concierge Service</p>
         <h1 id="hero-title">PawCierge - premium puppy matching for your lifestyle</h1>
-        <p class="hero__text">We find healthy small-breed puppies through trusted partners and guide you from the first shortlist to a calm adjustment at home.</p>
-        <div class="hero__actions">
-          <a class="button button--primary" href="#puppies">View puppies</a>
-          <a class="button button--glass" href="#lead">Get a consultation</a>
-        </div>
+      <p class="hero__text">We find healthy small-breed puppies through trusted partners and guide you from the first shortlist to a calm adjustment at home.</p>
+      <div class="hero__actions">
+        <a class="button button--primary" href="#puppies">View puppies</a>
+        <a class="button button--glass" href="#lead">Get a consultation</a>
       </div>
+        <div class="hero__stats" aria-label="PawCierge concierge highlights">
+          <span><strong>24h</strong> shortlist curation</span>
+          <span><strong>Global</strong> delivery planning</span>
+          <span><strong>1:1</strong> aftercare support</span>
+        </div>
+    </div>
       <div class="hero__note reveal">
         <span>Working since 2024</span>
         <strong>Personal guidance through the puppy's first peaceful evening at home</strong>
@@ -85,6 +91,35 @@
           <span class="fact-card__icon">♡</span>
           <h3>After-purchase care</h3>
           <p>We stay close during the adjustment period: routine, feeding, first nights, care, and gentle settling in.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section trust-section" aria-labelledby="trust-title">
+      <div class="section__head reveal">
+        <p class="eyebrow">Delivery and trust</p>
+        <h2 id="trust-title">A protected path from first shortlist to first night home</h2>
+      </div>
+      <div class="trust-grid reveal">
+        <article class="trust-card">
+          <span>01</span>
+          <h3>Worldwide delivery</h3>
+          <p>Route planning, travel timing, and arrival guidance are prepared around the puppy's comfort.</p>
+        </article>
+        <article class="trust-card">
+          <span>02</span>
+          <h3>Health review</h3>
+          <p>Vaccination records, age, routine, and baseline wellness notes are reviewed before reservation.</p>
+        </article>
+        <article class="trust-card">
+          <span>03</span>
+          <h3>Verified partners</h3>
+          <p>We prioritize transparent care conditions, trusted breeder relationships, and responsible handover.</p>
+        </article>
+        <article class="trust-card">
+          <span>04</span>
+          <h3>Aftercare concierge</h3>
+          <p>Feeding, sleep routine, first walks, grooming, and settling-in questions stay supported after delivery.</p>
         </article>
       </div>
     </section>
@@ -134,8 +169,147 @@
       <div class="section__head reveal">
         <p class="eyebrow">Available puppies</p>
         <h2 id="puppies-title">Small breeds with a high level of care</h2>
+        <p>Browse curated puppies, filter by lifestyle needs, and open a private profile before making an inquiry.</p>
       </div>
+      <form class="catalog-controls reveal" id="catalogControls" aria-label="Puppy catalog filters">
+        <label>
+          <span>Breed</span>
+          <select name="breed">
+            <option value="all">All breeds</option>
+          </select>
+        </label>
+        <label>
+          <span>Gender</span>
+          <select name="gender">
+            <option value="all">Any gender</option>
+            <option value="Female">Female</option>
+            <option value="Male">Male</option>
+          </select>
+        </label>
+        <label>
+          <span>Age</span>
+          <select name="age">
+            <option value="all">Any age</option>
+            <option value="under3">Under 3 months</option>
+            <option value="3to4">3-4 months</option>
+            <option value="over4">4+ months</option>
+          </select>
+        </label>
+        <label>
+          <span>Status</span>
+          <select name="status">
+            <option value="all">All statuses</option>
+            <option value="available">Available</option>
+            <option value="reserved">Reserved</option>
+          </select>
+        </label>
+        <label>
+          <span>Sort</span>
+          <select name="sort">
+            <option value="featured">Featured</option>
+            <option value="priceAsc">Price low to high</option>
+            <option value="priceDesc">Price high to low</option>
+            <option value="ageAsc">Youngest first</option>
+          </select>
+        </label>
+      </form>
+      <p class="catalog-count reveal" id="catalogCount" aria-live="polite"></p>
       <div class="puppy-grid reveal" id="puppyGrid"></div>
+    </section>
+
+    <section class="section nutrition-section" id="nutrition" aria-labelledby="nutrition-title">
+      <div class="section__head reveal">
+        <p class="eyebrow">Puppy Nutrition Match</p>
+        <h2 id="nutrition-title">Find the Right Nutrition for Your Puppy</h2>
+        <p>Answer a few quick questions and get a gentle feeding recommendation based on your puppy's age, size and needs.</p>
+      </div>
+      <div class="nutrition-match reveal">
+        <form class="nutrition-form" id="nutritionForm">
+          <label>
+            <span>Breed</span>
+            <select name="breed" required>
+              <option value="Pomeranian">Pomeranian</option>
+              <option value="Yorkshire Terrier">Yorkshire Terrier</option>
+              <option value="Chihuahua">Chihuahua</option>
+              <option value="Maltipoo">Maltipoo</option>
+              <option value="Toy Poodle">Toy Poodle</option>
+              <option value="Other small breed">Other small breed</option>
+            </select>
+          </label>
+          <label>
+            <span>Puppy age</span>
+            <select name="age" required>
+              <option value="1-2 months">1-2 months</option>
+              <option value="2-4 months">2-4 months</option>
+              <option value="4-6 months">4-6 months</option>
+              <option value="6-12 months">6-12 months</option>
+              <option value="12+ months">12+ months</option>
+            </select>
+          </label>
+          <label>
+            <span>Current weight</span>
+            <select name="weight" required>
+              <option value="under 1 kg">under 1 kg</option>
+              <option value="1-2 kg">1-2 kg</option>
+              <option value="2-4 kg">2-4 kg</option>
+              <option value="4+ kg">4+ kg</option>
+            </select>
+          </label>
+          <label>
+            <span>Feeding type</span>
+            <select name="feeding" required>
+              <option value="dry food">dry food</option>
+              <option value="wet food">wet food</option>
+              <option value="mixed feeding">mixed feeding</option>
+              <option value="natural food">natural food</option>
+              <option value="not sure yet">not sure yet</option>
+            </select>
+          </label>
+          <fieldset class="nutrition-needs">
+            <legend>Special needs</legend>
+            <label>
+              <input type="checkbox" name="needs" value="sensitive stomach">
+              <span>sensitive stomach</span>
+            </label>
+            <label>
+              <input type="checkbox" name="needs" value="picky eater">
+              <span>picky eater</span>
+            </label>
+            <label>
+              <input type="checkbox" name="needs" value="low appetite">
+              <span>low appetite</span>
+            </label>
+            <label>
+              <input type="checkbox" name="needs" value="allergies">
+              <span>allergies</span>
+            </label>
+            <label>
+              <input type="checkbox" name="needs" value="no special needs" checked>
+              <span>no special needs</span>
+            </label>
+          </fieldset>
+          <button class="button button--primary" type="submit">Get Nutrition Plan</button>
+        </form>
+
+        <article class="nutrition-result" id="nutritionResult" aria-live="polite" hidden>
+          <p class="eyebrow">Your gentle plan</p>
+          <h3 id="nutritionResultTitle">Small-breed puppy nutrition</h3>
+          <div class="nutrition-result__grid">
+            <div>
+              <span>Recommended feeding style</span>
+              <strong id="nutritionStyle"></strong>
+            </div>
+            <div>
+              <span>Feeding frequency per day</span>
+              <strong id="nutritionFrequency"></strong>
+            </div>
+          </div>
+          <p id="nutritionPortion"></p>
+          <p id="nutritionHydration"></p>
+          <p id="nutritionWarning"></p>
+          <small>This recommendation is informational only and does not replace veterinary advice.</small>
+        </article>
+      </div>
     </section>
 
     <section class="section lead-section" id="lead" aria-labelledby="lead-title">
@@ -151,8 +325,8 @@
             <input type="text" name="name" autocomplete="name" placeholder="Your name" required minlength="2">
           </label>
           <label>
-            <span>Phone number</span>
-            <input type="tel" name="phone" autocomplete="tel" placeholder="+1 555 000 0000" required>
+            <span>Country</span>
+            <input type="text" name="country" autocomplete="country-name" placeholder="United States" required>
           </label>
           <fieldset class="contact-choice">
             <legend>Where should we contact you?</legend>
@@ -165,6 +339,26 @@
               <span>Telegram</span>
             </label>
           </fieldset>
+          <label>
+            <span>Telegram / WhatsApp</span>
+            <input type="text" name="contact" autocomplete="tel" placeholder="@username or +1 555 000 0000" required>
+          </label>
+          <label>
+            <span>Budget</span>
+            <select name="budget" required>
+              <option value="$3,000-$4,000">$3,000-$4,000</option>
+              <option value="$4,000-$6,000">$4,000-$6,000</option>
+              <option value="$6,000-$9,000">$6,000-$9,000</option>
+              <option value="$9,000+">$9,000+</option>
+              <option value="Private consultation">Private consultation</option>
+            </select>
+          </label>
+          <label>
+            <span>Preferred puppy</span>
+            <select name="preferredPuppy" id="preferredPuppySelect">
+              <option value="Not sure yet">Not sure yet</option>
+            </select>
+          </label>
           <label>
             <span>Request details or consultation notes</span>
             <textarea name="message" rows="4" placeholder="Breed, age, timeline, delivery country"></textarea>
@@ -197,6 +391,63 @@
       </div>
     </section>
   </main>
+
+  <div class="puppy-detail" id="puppyDetail" role="dialog" aria-modal="true" aria-labelledby="puppyDetailTitle" hidden>
+    <div class="puppy-detail__backdrop" data-detail-close></div>
+    <article class="puppy-detail__panel" tabindex="-1">
+      <button class="puppy-detail__close" type="button" data-detail-close aria-label="Close puppy details">Close</button>
+      <div class="puppy-detail__gallery">
+        <img id="detailMainImage" src="images/puppies/luna.svg" alt="">
+        <div class="puppy-detail__thumbs" id="detailThumbs"></div>
+      </div>
+      <div class="puppy-detail__content">
+        <p class="eyebrow" id="detailStatus">Available</p>
+        <h2 id="puppyDetailTitle">Puppy profile</h2>
+        <p id="detailSummary"></p>
+        <dl class="puppy-detail__facts">
+          <div><dt>Breed</dt><dd id="detailBreed"></dd></div>
+          <div><dt>Age</dt><dd id="detailAge"></dd></div>
+          <div><dt>Gender</dt><dd id="detailGender"></dd></div>
+          <div><dt>Price</dt><dd id="detailPrice"></dd></div>
+        </dl>
+        <div class="trait-list" id="detailTraits"></div>
+        <div class="detail-info-grid">
+          <section>
+            <h3>Feeding info</h3>
+            <p id="detailFeeding"></p>
+          </section>
+          <section>
+            <h3>Vaccination info</h3>
+            <p id="detailVaccination"></p>
+          </section>
+          <section>
+            <h3>Delivery info</h3>
+            <p id="detailDelivery"></p>
+          </section>
+        </div>
+        <form class="detail-inquiry" id="detailInquiryForm">
+          <label>
+            <span>Your name</span>
+            <input type="text" name="name" placeholder="Your name" required>
+          </label>
+          <label>
+            <span>Contact</span>
+            <input type="text" name="contact" placeholder="WhatsApp or Telegram" required>
+          </label>
+          <label>
+            <span>Message</span>
+            <textarea name="message" rows="3" placeholder="Tell us your delivery country and timing"></textarea>
+          </label>
+          <button class="button button--primary" type="submit">Request this puppy</button>
+          <p class="form-message" id="detailFormMessage" role="status"></p>
+        </form>
+        <div class="detail-contact-row">
+          <a class="button button--glass" href="https://wa.me/" target="_blank" rel="noreferrer">WhatsApp</a>
+          <a class="button button--glass" href="https://t.me/" target="_blank" rel="noreferrer">Telegram</a>
+        </div>
+      </div>
+    </article>
+  </div>
 
   <footer class="footer">
     <div class="footer__brand">
