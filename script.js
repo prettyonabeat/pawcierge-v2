@@ -1,6 +1,7 @@
 // Shared shell: one header/footer for all static pages.
 const pageName = document.body.dataset.page || "home";
 const LOGO_PATH = "images/Logo/mini.png";
+const SPECIAL_ORDER_IMAGE = "images/Logo/special.jpg";
 
 function renderSiteShell() {
   const headerHost = document.querySelector("[data-site-header]");
@@ -234,20 +235,41 @@ function getFilteredPuppies() {
   return filtered;
 }
 
+function getSpecialOrderCardMarkup() {
+  return `
+    <article class="puppy-card special-order-card" data-card-href="special-order.html" tabindex="0" role="link" aria-label="Create a special puppy order">
+      <a class="special-order-card__image" href="special-order.html" aria-label="Create a special puppy order">
+        <img src="${SPECIAL_ORDER_IMAGE}" alt="Special Order concierge puppy sourcing" loading="lazy">
+        <span>VIP Service</span>
+      </a>
+      <div class="puppy-card__body special-order-card__body">
+        <div class="puppy-card__heading special-order-card__heading">
+          <div>
+            <h3><a href="special-order.html">Special Order</a></h3>
+            <p>Personalized worldwide puppy sourcing with individual requirements and concierge support.</p>
+          </div>
+        </div>
+        <a class="button button--primary special-order-card__button" href="special-order.html">Create Request</a>
+      </div>
+    </article>
+  `;
+}
+
 function renderPuppies() {
   if (!puppyGrid || !getPuppies().length) return;
   const puppies = getFilteredPuppies();
+  const specialOrderCard = getSpecialOrderCardMarkup();
 
   if (catalogCount) {
     catalogCount.textContent = `${puppies.length} curated ${puppies.length === 1 ? "puppy" : "puppies"} shown`;
   }
 
   if (!puppies.length) {
-    puppyGrid.innerHTML = `<p class="catalog-empty">No puppies match these filters yet. Send a request and we will curate a private shortlist.</p>`;
+    puppyGrid.innerHTML = `${specialOrderCard}<p class="catalog-empty">No puppies match these filters yet. Send a request and we will curate a private shortlist.</p>`;
     return;
   }
 
-  puppyGrid.innerHTML = puppies.map((puppy) => `
+  puppyGrid.innerHTML = specialOrderCard + puppies.map((puppy) => `
     <article class="puppy-card" data-status="${puppy.statusKey}" data-card-href="puppy-${puppy.id}.html" tabindex="0" role="link" aria-label="Open ${puppy.name}'s puppy profile">
       <a class="puppy-card__image" href="puppy-${puppy.id}.html" aria-label="Open ${puppy.name}'s profile">
         <img src="${puppy.image}" alt="${puppy.name}, ${puppy.breed}" loading="lazy">
@@ -809,6 +831,11 @@ function handlePuppyInquiry(inquiry) {
   return Promise.resolve({ ok: true });
 }
 
+function handleSpecialOrderRequest(request) {
+  console.info("MiniMishkiBoo special order request:", request);
+  return Promise.resolve({ ok: true });
+}
+
 function bindLeadForms() {
   document.querySelectorAll("#leadForm, [data-lead-form]").forEach((form) => {
     if (form.dataset.bound === "true") return;
@@ -847,6 +874,63 @@ function bindLeadForms() {
 }
 
 bindLeadForms();
+
+document.querySelectorAll("[data-special-order-form]").forEach((form) => {
+  const message = form.querySelector(".form-message");
+  const contactMethod = form.elements.contactMethod;
+  const contactField = form.querySelector("[data-special-contact-field]");
+  const contactLabel = form.querySelector("[data-special-contact-label]");
+  const contactInput = form.elements.contactValue;
+
+  function syncSpecialContactField(shouldReset = false) {
+    if (!contactMethod || !contactLabel || !contactInput || !contactField) return;
+    const isWhatsApp = contactMethod.value === "WhatsApp";
+
+    contactField.classList.add("is-changing");
+    contactLabel.textContent = isWhatsApp ? "WhatsApp phone number" : "Telegram username";
+    contactInput.type = isWhatsApp ? "tel" : "text";
+    contactInput.placeholder = isWhatsApp ? "+1 234 567 890" : "@username";
+    contactInput.autocomplete = isWhatsApp ? "tel" : "off";
+    contactInput.setAttribute("aria-label", contactLabel.textContent);
+    contactInput.required = true;
+    if (shouldReset) contactInput.value = "";
+
+    window.setTimeout(() => {
+      contactField.classList.remove("is-changing");
+    }, 220);
+  }
+
+  syncSpecialContactField(false);
+  contactMethod?.addEventListener("change", () => syncSpecialContactField(true));
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const formData = new FormData(form);
+    const request = Object.fromEntries(formData.entries());
+    const requiredFields = ["breed", "deliveryCountry", "name", "contactMethod", "contactValue"];
+    const isValid = requiredFields.every((field) => request[field] && request[field].trim().length >= 2);
+
+    form.classList.remove("has-error");
+
+    if (!isValid) {
+      form.classList.add("has-error");
+      if (message) message.textContent = "Please complete breed, delivery country, name, and your preferred contact details.";
+      return;
+    }
+
+    await handleSpecialOrderRequest({
+      ...request,
+      contactType: request.contactMethod,
+      contactValue: request.contactValue.trim()
+    });
+
+    form.reset();
+    syncSpecialContactField(false);
+    if (message) {
+      message.textContent = "Thank you. Your personalized puppy request has been received. Our team will contact you shortly.";
+    }
+  });
+});
 
 detailInquiryForm?.addEventListener("submit", async (event) => {
   event.preventDefault();

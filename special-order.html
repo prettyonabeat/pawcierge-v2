@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Create a personalized MiniMishkiBoo puppy sourcing request with worldwide concierge support.">
+  <title>Special Order | MiniMishkiBoo</title>
+  <link rel="icon" type="image/png" href="images/Logo/mini.png">
+  <link rel="apple-touch-icon" href="images/Logo/mini.png">
+  <meta property="og:image" content="images/Logo/special.jpg">
+  <meta name="twitter:image" content="images/Logo/special.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="puppies">
+  <div data-site-header></div>
+  <main>
+    <section class="section special-order-hero section--dark">
+      <div class="special-order-hero__copy reveal">
+        <p class="eyebrow">VIP puppy concierge</p>
+        <h1>Personal Puppy Request</h1>
+        <p>We help source puppies worldwide based on your personal preferences.</p>
+      </div>
+      <div class="special-order-hero__media reveal">
+        <img src="images/Logo/special.jpg" alt="Special Order puppy concierge">
+      </div>
+    </section>
+
+    <section class="section lead-section special-order-section">
+      <div class="special-order-panel reveal">
+        <div class="lead-panel__copy">
+          <p class="eyebrow">Special Order</p>
+          <h2>Personalized worldwide puppy sourcing</h2>
+          <p>Share your breed, color, delivery country, and preferred contact channel. Our team will review your request and prepare the next step personally.</p>
+        </div>
+        <form class="lead-form special-order-form" data-special-order-form novalidate>
+          <label>
+            <span>Breed</span>
+            <input type="text" name="breed" autocomplete="off" placeholder="Pomeranian" required>
+          </label>
+          <label>
+            <span>Gender</span>
+            <select name="gender" required>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+          </label>
+          <label>
+            <span>Color</span>
+            <select name="color" required>
+              <option value="Orange">Orange</option>
+              <option value="Golden">Golden</option>
+              <option value="Cream">Cream</option>
+              <option value="White">White</option>
+              <option value="Black">Black</option>
+              <option value="Black & Tan">Black & Tan</option>
+              <option value="Merle">Merle</option>
+              <option value="Chocolate">Chocolate</option>
+              <option value="Chocolate Merle">Chocolate Merle</option>
+              <option value="Lilac">Lilac</option>
+              <option value="Isabella">Isabella</option>
+              <option value="Chocolate Sable">Chocolate Sable</option>
+              <option value="Parti Color">Parti Color</option>
+            </select>
+          </label>
+          <label>
+            <span>Eye Color</span>
+            <select name="eyeColor" required>
+              <option value="Green">Green</option>
+              <option value="Blue">Blue</option>
+              <option value="Brown">Brown</option>
+            </select>
+          </label>
+          <label class="special-order-form__wide">
+            <span>Comment</span>
+            <textarea name="comment" rows="5" placeholder="Size, coat, temperament, timing, budget, or any special preferences"></textarea>
+          </label>
+          <label>
+            <span>Delivery Country</span>
+            <input type="text" name="deliveryCountry" autocomplete="country-name" placeholder="United States" required>
+          </label>
+          <label>
+            <span>Your Name</span>
+            <input type="text" name="name" autocomplete="name" placeholder="Your name" required minlength="2">
+          </label>
+          <label>
+            <span>Preferred Contact Method</span>
+            <select name="contactMethod" required>
+              <option value="Telegram">Telegram</option>
+              <option value="WhatsApp">WhatsApp</option>
+            </select>
+          </label>
+          <label class="special-order-contact-field" data-special-contact-field>
+            <span data-special-contact-label>Telegram username</span>
+            <input type="text" name="contactValue" autocomplete="off" placeholder="@username" required>
+          </label>
+          <button class="button button--primary special-order-form__submit" type="submit">Send Request</button>
+          <p class="form-message special-order-form__message" role="status"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+  <div data-site-footer></div>
+  <script src="data/puppies.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
