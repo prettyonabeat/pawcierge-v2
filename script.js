@@ -1,5 +1,6 @@
 // Shared shell: one header/footer for all static pages.
 const pageName = document.body.dataset.page || "home";
+const LOGO_PATH = "images/Logo/mini.png";
 
 function renderSiteShell() {
   const headerHost = document.querySelector("[data-site-header]");
@@ -7,21 +8,20 @@ function renderSiteShell() {
   const links = [
     ["home", "Home", "index.html"],
     ["puppies", "Puppies", "puppies.html"],
-    ["details", "Puppy Details", "puppy-luna.html"],
     ["reviews", "Reviews", "reviews.html"],
     ["delivery", "Delivery", "delivery.html"],
-    ["nutrition", "Nutrition Guide", "nutrition.html"],
     ["about", "About", "about.html"],
     ["contact", "Contact", "contact.html"]
   ];
-  const desktopLinks = links.filter(([key]) => key !== "details");
+  const desktopLinks = links;
+  const bottomLinks = links.filter(([key]) => ["home", "puppies", "reviews", "delivery", "contact"].includes(key));
 
   if (headerHost) {
     headerHost.innerHTML = `
       <header class="site-header" id="top">
-        <a class="brand" href="index.html" aria-label="PawCierge">
-          <img class="brand__mark" src="images/Logo/logo-1.png" alt="">
-          <span>PawCierge</span>
+        <a class="brand" href="index.html" aria-label="MiniMishkiBoo">
+          <img class="brand__mark" src="${LOGO_PATH}" alt="">
+          <span>MiniMishkiBoo</span>
         </a>
         <nav class="nav" aria-label="Main navigation">
           ${desktopLinks.map(([key, label, href]) => `<a class="${pageName === key ? "is-current" : ""}" href="${href}">${label}</a>`).join("")}
@@ -35,20 +35,28 @@ function renderSiteShell() {
           <button class="mobile-menu__backdrop" type="button" aria-label="Close mobile menu" data-menu-close></button>
           <aside class="mobile-menu__panel" aria-label="Mobile navigation">
             <div class="mobile-menu__top">
-              <a class="brand" href="index.html" aria-label="PawCierge">
-                <img class="brand__mark" src="images/Logo/logo-1.png" alt="">
-                <span>PawCierge</span>
+              <a class="brand" href="index.html" aria-label="MiniMishkiBoo">
+                <img class="brand__mark" src="${LOGO_PATH}" alt="">
+                <span>MiniMishkiBoo</span>
               </a>
               <button class="mobile-menu__close" type="button" aria-label="Close mobile menu" data-menu-close></button>
             </div>
             <nav class="mobile-menu__nav" aria-label="Mobile navigation links">
-              ${links.map(([key, label, href]) => `<a class="${pageName === key || (key === "details" && document.body.dataset.puppyId) ? "is-current" : ""}" href="${href}">${label}</a>`).join("")}
+              ${links.map(([key, label, href]) => `<a class="${pageName === key ? "is-current" : ""}" href="${href}">${label}</a>`).join("")}
             </nav>
-            <a class="button button--primary mobile-menu__cta" href="contact.html">Find My Puppy</a>
-            <p>Private puppy matching, delivery planning, and first-week aftercare in one calm concierge experience.</p>
+            <a class="button button--primary mobile-menu__cta" href="contact.html">Find a Puppy</a>
+            <p>Premium Pomeranian breeding, trusted kennels, worldwide sourcing, and personal care at every step.</p>
           </aside>
         </div>
       </header>
+      <nav class="bottom-nav" aria-label="Mobile bottom navigation">
+        ${bottomLinks.map(([key, label, href]) => `
+          <a class="bottom-nav__link ${pageName === key ? "is-current" : ""}" href="${href}" aria-label="${label}" ${pageName === key ? 'aria-current="page"' : ""}>
+            <span class="bottom-nav__icon" aria-hidden="true"></span>
+            <span>${label}</span>
+          </a>
+        `).join("")}
+      </nav>
     `;
   }
 
@@ -57,21 +65,20 @@ function renderSiteShell() {
       <footer class="footer">
         <div class="footer__brand">
           <a class="brand" href="index.html">
-            <img class="brand__mark" src="images/Logo/logo-1.png" alt="">
-            <span>PawCierge</span>
+            <img class="brand__mark" src="${LOGO_PATH}" alt="">
+            <span>MiniMishkiBoo</span>
           </a>
-          <p>A premium concierge service for matching, delivering, and helping small-breed puppies adjust at home.</p>
+          <p>Premium Pomeranian breeding and worldwide puppy sourcing with trusted kennels, personal care, and support at every step.</p>
         </div>
         <div class="footer__links">
           <a href="puppies.html">Available puppies</a>
           <a href="delivery.html">Delivery process</a>
-          <a href="nutrition.html">Nutrition guide</a>
           <a href="contact.html">Private request</a>
         </div>
         <div class="footer__meta">
-          <p>International Puppy Concierge Service</p>
-          <p>Working since 2024</p>
-          <p>&copy; 2026 PawCierge. All rights reserved.</p>
+          <p>With you since 2008</p>
+          <p>Our family is based across different countries around the world.</p>
+          <p>&copy; 2026 MiniMishkiBoo. All rights reserved.</p>
           <nav aria-label="Social links">
             <a href="https://instagram.com/" target="_blank" rel="noreferrer">Instagram</a>
             <a href="https://t.me/" target="_blank" rel="noreferrer">Telegram</a>
@@ -159,7 +166,7 @@ const detailFormMessage = document.querySelector("#detailFormMessage");
 let activeDetailPuppy = null;
 
 function getPuppies() {
-  return window.PAWCIERGE_PUPPIES || [];
+  return window.MINIMISHKIBOO_PUPPIES || [];
 }
 
 function populateCatalogFilters() {
@@ -198,7 +205,7 @@ function populatePreferredPuppies() {
 function getFilteredPuppies() {
   const puppies = [...getPuppies()];
   if (!catalogControls) {
-    return puppyGrid?.dataset.featured === "true" ? puppies.slice(0, 3) : puppies;
+    return puppies;
   }
 
   const formData = new FormData(catalogControls);
@@ -241,15 +248,15 @@ function renderPuppies() {
   }
 
   puppyGrid.innerHTML = puppies.map((puppy) => `
-    <article class="puppy-card" data-status="${puppy.statusKey}">
-      <div class="puppy-card__image">
+    <article class="puppy-card" data-status="${puppy.statusKey}" data-card-href="puppy-${puppy.id}.html" tabindex="0" role="link" aria-label="Open ${puppy.name}'s puppy profile">
+      <a class="puppy-card__image" href="puppy-${puppy.id}.html" aria-label="Open ${puppy.name}'s profile">
         <img src="${puppy.image}" alt="${puppy.name}, ${puppy.breed}" loading="lazy">
         <span data-status="${puppy.statusKey}">${puppy.status}</span>
-      </div>
+      </a>
       <div class="puppy-card__body">
         <div class="puppy-card__heading">
           <div>
-            <h3>${puppy.name}</h3>
+            <h3><a href="puppy-${puppy.id}.html">${puppy.name}</a></h3>
             <p>${puppy.breed}</p>
           </div>
           <strong class="puppy-card__price">${puppy.price}</strong>
@@ -325,12 +332,62 @@ function getInquiryFormMarkup(preferredPuppy = "Not sure yet") {
 function bindGalleryThumbs() {
   const mainImage = document.querySelector("#detailMainImage");
   const thumbs = document.querySelector("#detailThumbs");
+  const gallery = document.querySelector("[data-profile-gallery]");
+  let touchStartX = 0;
+
+  function setProfileImage(src, button) {
+    if (!mainImage || !src) return;
+    mainImage.classList.remove("is-changing");
+    void mainImage.offsetWidth;
+    mainImage.classList.add("is-changing");
+    mainImage.src = src;
+    [...thumbs?.children || []].forEach((thumb) => thumb.classList.toggle("is-active", thumb === button || thumb.dataset.image === src));
+  }
+
   thumbs?.addEventListener("click", (event) => {
     const button = event.target.closest("button[data-image]");
     if (!button || !mainImage) return;
-    mainImage.src = button.dataset.image;
-    [...thumbs.children].forEach((thumb) => thumb.classList.toggle("is-active", thumb === button));
+    setProfileImage(button.dataset.image, button);
   });
+
+  gallery?.addEventListener("touchstart", (event) => {
+    touchStartX = event.changedTouches[0]?.clientX || 0;
+  }, { passive: true });
+
+  gallery?.addEventListener("touchend", (event) => {
+    const endX = event.changedTouches[0]?.clientX || 0;
+    const delta = endX - touchStartX;
+    if (Math.abs(delta) < 44 || !thumbs?.children.length) return;
+    const buttons = [...thumbs.querySelectorAll("button[data-image]")];
+    const activeIndex = Math.max(0, buttons.findIndex((button) => button.classList.contains("is-active")));
+    const nextIndex = delta < 0 ? Math.min(buttons.length - 1, activeIndex + 1) : Math.max(0, activeIndex - 1);
+    setProfileImage(buttons[nextIndex]?.dataset.image, buttons[nextIndex]);
+  });
+}
+
+function getPuppyDetailLink(puppy) {
+  return `puppy-${puppy.id}.html`;
+}
+
+function getContactLink(puppy, topic = "profile") {
+  return `contact.html?puppy=${encodeURIComponent(puppy.name)}&topic=${encodeURIComponent(topic)}`;
+}
+
+function getSimilarPuppies(currentPuppy) {
+  const puppies = getPuppies().filter((puppy) => puppy.id !== currentPuppy.id);
+  const sameBreed = puppies.filter((puppy) => puppy.breed === currentPuppy.breed);
+  return [...sameBreed, ...puppies.filter((puppy) => puppy.breed !== currentPuppy.breed)].slice(0, 4);
+}
+
+function getPuppyProfileCard(puppy) {
+  return `
+    <a class="similar-puppy-card" href="${getPuppyDetailLink(puppy)}">
+      <img src="${puppy.image}" alt="${puppy.name}, ${puppy.breed}" loading="lazy">
+      <span data-status="${puppy.statusKey}">${puppy.status}</span>
+      <strong>${puppy.name}</strong>
+      <small>${puppy.breed} &middot; ${puppy.age}</small>
+    </a>
+  `;
 }
 
 function renderPuppyProfile() {
@@ -340,73 +397,99 @@ function renderPuppyProfile() {
   const puppy = getPuppies().find((item) => item.id === puppyId) || getPuppies()[0];
   if (!puppy) return;
   activeDetailPuppy = puppy;
-  document.title = `${puppy.name} - ${puppy.breed} | PawCierge`;
+  document.title = `${puppy.name} - ${puppy.breed} | MiniMishkiBoo`;
 
+  const similarPuppies = getSimilarPuppies(puppy);
   profile.innerHTML = `
-    <section class="section puppy-page-hero">
-      <div class="puppy-detail__gallery reveal">
-        <img id="detailMainImage" src="${puppy.gallery[0]}" alt="${puppy.name}, ${puppy.breed}">
-        <div class="puppy-detail__thumbs" id="detailThumbs">
-          ${puppy.gallery.map((image, index) => `
-            <button class="${index === 0 ? "is-active" : ""}" type="button" data-image="${image}" aria-label="View ${puppy.name} image ${index + 1}">
-              <img src="${image}" alt="" loading="lazy">
-            </button>
-          `).join("")}
+    <section class="section puppy-profile-hero">
+      <nav class="profile-breadcrumbs reveal" aria-label="Breadcrumb">
+        <a href="index.html">Home</a>
+        <span>/</span>
+        <a href="puppies.html">Puppies</a>
+        <span>/</span>
+        <span>${puppy.name}</span>
+      </nav>
+      <a class="profile-back reveal" href="puppies.html">Back to puppies</a>
+      <div class="profile-layout">
+        <div class="profile-gallery reveal" data-profile-gallery>
+          <div class="profile-gallery__thumbs" id="detailThumbs" aria-label="${puppy.name} gallery thumbnails">
+            ${puppy.gallery.map((image, index) => `
+              <button class="${index === 0 ? "is-active" : ""}" type="button" data-image="${image}" aria-label="View ${puppy.name} image ${index + 1}">
+                <img src="${image}" alt="" loading="lazy">
+              </button>
+            `).join("")}
+          </div>
+          <div class="profile-gallery__stage">
+            <img id="detailMainImage" src="${puppy.gallery[0]}" alt="${puppy.name}, ${puppy.breed}">
+            <div class="profile-gallery__badge">
+              <span>${puppy.status}</span>
+              <strong>${puppy.price}</strong>
+            </div>
+          </div>
+        </div>
+        <aside class="profile-card reveal" aria-label="${puppy.name} puppy facts">
+          <p class="eyebrow">${puppy.status} puppy profile</p>
+          <h1>${puppy.name}</h1>
+          <p>${puppy.summary}</p>
+          <dl class="profile-facts">
+            <div><dt>Breed</dt><dd>${puppy.breed}</dd></div>
+            <div><dt>Gender</dt><dd>${puppy.gender}</dd></div>
+            <div><dt>Age</dt><dd>${puppy.age}</dd></div>
+            <div><dt>Color</dt><dd>${puppy.color}</dd></div>
+            <div><dt>Weight</dt><dd>${puppy.weight}</dd></div>
+            <div><dt>Availability</dt><dd>${puppy.status}</dd></div>
+            <div><dt>Price</dt><dd>${puppy.price}</dd></div>
+            <div><dt>Vaccination</dt><dd>${puppy.vaccination}</dd></div>
+            <div><dt>Feeding</dt><dd>${puppy.feeding}</dd></div>
+            <div><dt>Delivery</dt><dd>${puppy.deliveryAvailable}</dd></div>
+          </dl>
+          <div class="trait-list profile-traits" aria-label="Personality traits">
+            ${puppy.traits.map((trait) => `<span>${trait}</span>`).join("")}
+          </div>
+          <div class="profile-actions">
+            <a class="button button--primary" href="https://t.me/" target="_blank" rel="noreferrer">Contact via Telegram</a>
+            <a class="button button--glass" href="https://wa.me/" target="_blank" rel="noreferrer">Contact via WhatsApp</a>
+            <a class="button button--primary" href="${getContactLink(puppy, "Reserve Puppy")}">Reserve Puppy</a>
+            <a class="button button--glass" href="${getContactLink(puppy, "Ask About Delivery")}">Ask About Delivery</a>
+          </div>
+        </aside>
+      </div>
+    </section>
+    <section class="section section--dark profile-story-section">
+      <div class="profile-story reveal">
+        <div>
+          <p class="eyebrow">Personality story</p>
+          <h2>${puppy.name}'s boutique profile</h2>
+          <p>${puppy.story}</p>
+          <p>${puppy.personalityDescription}</p>
+          <p>${puppy.care}</p>
+        </div>
+        <div class="profile-note">
+          <span>Personality</span>
+          <strong>${puppy.personality}</strong>
+          <p>${puppy.breed} placement is guided by temperament, home rhythm, grooming expectations, and travel readiness.</p>
         </div>
       </div>
-      <div class="puppy-detail__content reveal">
-        <p class="eyebrow">${puppy.status}</p>
-        <h1>${puppy.name} - ${puppy.breed}</h1>
-        <p>${puppy.summary}</p>
-        <dl class="puppy-detail__facts">
-          <div><dt>Breed</dt><dd>${puppy.breed}</dd></div>
-          <div><dt>Age</dt><dd>${puppy.age}</dd></div>
-          <div><dt>Gender</dt><dd>${puppy.gender}</dd></div>
-          <div><dt>Price</dt><dd>${puppy.price}</dd></div>
-        </dl>
-        <div class="trait-list">${puppy.traits.map((trait) => `<span>${trait}</span>`).join("")}</div>
-        <div class="hero__actions">
-          <a class="button button--primary" href="contact.html?puppy=${encodeURIComponent(puppy.name)}">Inquire about ${puppy.name}</a>
-          <a class="button button--glass" href="puppies.html">Back to puppies</a>
-        </div>
+    </section>
+    <section class="section trust-section profile-trust-section">
+      <div class="section__head reveal">
+        <p class="eyebrow">Delivery & trust</p>
+        <h2>Protected from reservation to arrival</h2>
+      </div>
+      <div class="trust-grid profile-trust-grid reveal">
+        <article class="trust-card"><span>01</span><h3>Worldwide delivery</h3><p>${puppy.delivery}</p></article>
+        <article class="trust-card"><span>02</span><h3>Health guarantee</h3><p>Health records, readiness notes, and reservation details are organized before handover.</p></article>
+        <article class="trust-card"><span>03</span><h3>Vet checked</h3><p>${puppy.vaccination}</p></article>
+        <article class="trust-card"><span>04</span><h3>After-purchase support</h3><p>Arrival routine, feeding transition, grooming rhythm, and first-week questions stay supported.</p></article>
       </div>
     </section>
     <section class="section section--dark">
-      <div class="detail-info-grid reveal">
-        <section>
-          <h3>Personality</h3>
-          <p>${puppy.summary}</p>
-        </section>
-        <section>
-          <h3>Breed info</h3>
-          <p>${puppy.breed} puppies are matched with attention to lifestyle, grooming rhythm, temperament, and travel readiness.</p>
-        </section>
-        <section>
-          <h3>Feeding info</h3>
-          <p>${puppy.feeding}</p>
-        </section>
-        <section>
-          <h3>Vaccination info</h3>
-          <p>${puppy.vaccination}</p>
-        </section>
-        <section>
-          <h3>Delivery info</h3>
-          <p>${puppy.delivery}</p>
-        </section>
-        <section>
-          <h3>Concierge support</h3>
-          <p>We prepare arrival routine, first-night guidance, and follow-up support after handover.</p>
-        </section>
+      <div class="section__head reveal">
+        <p class="eyebrow">You may also like</p>
+        <h2>Similar puppies</h2>
       </div>
-    </section>
-    <section class="section lead-section">
-      <div class="lead-panel reveal">
-        <div class="lead-panel__copy">
-          <p class="eyebrow">Private inquiry</p>
-          <h2>Request ${puppy.name}'s full profile</h2>
-          <p>Share your country, timeline, and preferred contact method. A PawCierge advisor will confirm availability and next steps.</p>
-        </div>
-        ${getInquiryFormMarkup(puppy.name)}
+      <div class="similar-puppies reveal" aria-label="Similar puppy carousel">
+        ${similarPuppies.map(getPuppyProfileCard).join("")}
       </div>
     </section>
   `;
@@ -469,11 +552,22 @@ catalogControls?.addEventListener("change", renderPuppies);
 puppyGrid?.addEventListener("click", (event) => {
   const detailButton = event.target.closest("[data-puppy-detail]");
   const contactLink = event.target.closest("[data-puppy-contact]");
+  const card = event.target.closest("[data-card-href]");
 
   if (detailButton) openPuppyDetail(detailButton.dataset.puppyDetail);
   if (contactLink && preferredPuppySelect) {
     preferredPuppySelect.value = contactLink.dataset.puppyContact;
   }
+  if (card && !event.target.closest("a, button")) {
+    window.location.href = card.dataset.cardHref;
+  }
+});
+
+puppyGrid?.addEventListener("keydown", (event) => {
+  const card = event.target.closest("[data-card-href]");
+  if (!card || !["Enter", " "].includes(event.key)) return;
+  event.preventDefault();
+  window.location.href = card.dataset.cardHref;
 });
 
 detailThumbs?.addEventListener("click", (event) => {
@@ -706,12 +800,12 @@ generateNameButton?.addEventListener("click", generatePuppyName);
 
 // Placeholder for a future Telegram Bot API, n8n webhook, or CRM integration.
 function handleLeadSubmit(lead) {
-  console.info("PawCierge lead payload:", lead);
+  console.info("MiniMishkiBoo lead payload:", lead);
   return Promise.resolve({ ok: true });
 }
 
 function handlePuppyInquiry(inquiry) {
-  console.info("PawCierge puppy inquiry:", inquiry);
+  console.info("MiniMishkiBoo puppy inquiry:", inquiry);
   return Promise.resolve({ ok: true });
 }
 
@@ -773,5 +867,5 @@ detailInquiryForm?.addEventListener("submit", async (event) => {
   });
 
   detailInquiryForm.reset();
-  detailFormMessage.textContent = "Thank you. A PawCierge advisor will follow up with next steps.";
+  detailFormMessage.textContent = "Thank you. A MiniMishkiBoo advisor will follow up with next steps.";
 });
