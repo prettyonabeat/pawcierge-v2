@@ -26,6 +26,7 @@
   --shadow: 0 24px 70px rgba(110, 86, 66, 0.16);
   --shadow-hot: 0 18px 52px rgba(198, 162, 126, 0.26);
   --font: "Poppins", "Google Sans", "Nunito Sans", Arial, sans-serif;
+  --brand-font: "Cormorant Garamond", serif;
 }
 
 * {
@@ -200,10 +201,13 @@ html.has-seen-intro .intro {
 }
 
 .intro__name {
+  font-family: var(--brand-font);
   font-size: clamp(4rem, 12vw, 9rem);
-  font-weight: 800;
-  line-height: 0.92;
-  letter-spacing: 0;
+  font-weight: 600;
+  line-height: 0.88;
+  letter-spacing: 0.035em;
+  font-kerning: normal;
+  text-rendering: optimizeLegibility;
 }
 
 .intro__line,
@@ -238,9 +242,18 @@ html.has-seen-intro .intro {
   display: inline-flex;
   align-items: center;
   gap: 12px;
+  font-family: var(--brand-font);
   font-size: 1.45rem;
-  font-weight: 800;
-  letter-spacing: 0;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.035em;
+  font-kerning: normal;
+  text-rendering: optimizeLegibility;
+}
+
+.brand > span {
+  display: block;
+  line-height: 0.94;
 }
 
 .brand__mark {
@@ -576,9 +589,13 @@ h1 {
   width: max-content;
   max-width: 100%;
   margin-bottom: 24px;
+  font-family: var(--brand-font);
   font-size: clamp(3.4rem, 5.6vw, 6.35rem);
-  line-height: 0.94;
-  letter-spacing: 0;
+  font-weight: 600;
+  line-height: 0.9;
+  letter-spacing: 0.04em;
+  font-kerning: normal;
+  text-rendering: optimizeLegibility;
   white-space: nowrap;
 }
 
@@ -3289,6 +3306,7 @@ body.has-detail-open {
     gap: 10px;
     max-width: 100%;
     font-size: 1.22rem;
+    letter-spacing: 0.025em;
   }
 
   .brand__mark {
@@ -3300,6 +3318,7 @@ body.has-detail-open {
   .intro__name {
     font-size: clamp(3rem, 16vw, 5rem);
     line-height: 1;
+    letter-spacing: 0.025em;
     text-align: center;
     overflow-wrap: anywhere;
   }
@@ -3344,6 +3363,7 @@ body.has-detail-open {
     margin-bottom: 18px;
     font-size: clamp(2.25rem, 10.7vw, 3.55rem);
     line-height: 0.98;
+    letter-spacing: 0.03em;
   }
 
   h2 {
