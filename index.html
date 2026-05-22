@@ -12,6 +12,17 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    (() => {
+      try {
+        if (localStorage.getItem("miniMishkiBooIntroSeen")) {
+          document.documentElement.classList.add("has-seen-intro");
+        }
+      } catch (error) {
+        // Keep the intro available when storage is blocked.
+      }
+    })();
+  </script>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body data-page="home">
@@ -67,24 +78,82 @@
         <h2 id="why-title">Personal guidance instead of guesswork</h2>
       </div>
       <div class="facts-carousel reveal" aria-label="MiniMishkiBoo advantages">
-        <article class="fact-card"><span class="fact-card__icon"></span><h3>Private matching</h3><p>We clarify lifestyle, temperament, timing, and breed preferences before recommending puppies.</p></article>
-        <article class="fact-card"><span class="fact-card__icon"></span><h3>Verified partners</h3><p>We prioritize transparent care conditions, trusted breeder relationships, and responsible handover.</p></article>
-        <article class="fact-card"><span class="fact-card__icon"></span><h3>Travel planning</h3><p>Routes, documents, comfort timing, and arrival routines are prepared with care.</p></article>
-        <article class="fact-card"><span class="fact-card__icon"></span><h3>Aftercare</h3><p>Feeding, first nights, grooming, and settling-in questions stay supported after delivery.</p></article>
+        <article class="fact-card">
+          <span class="fact-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="12" r="8.5"></circle>
+              <circle cx="12" cy="12" r="4.5"></circle>
+              <circle cx="12" cy="12" r="1"></circle>
+            </svg>
+          </span>
+          <h3>Private matching</h3>
+          <p>We clarify lifestyle, temperament, timing, and breed preferences before recommending puppies.</p>
+        </article>
+        <article class="fact-card">
+          <span class="fact-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M12 3.25c2.05 1.55 4.24 2.4 6.75 2.62v5.82c0 4.45-2.62 7.38-6.75 9.06-4.13-1.68-6.75-4.61-6.75-9.06V5.87C7.76 5.65 9.95 4.8 12 3.25Z"></path>
+              <path d="m8.9 12.2 2 2 4.4-4.45"></path>
+            </svg>
+          </span>
+          <h3>Verified partners</h3>
+          <p>We prioritize transparent care conditions, trusted breeder relationships, and responsible handover.</p>
+        </article>
+        <article class="fact-card">
+          <span class="fact-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <circle cx="6" cy="18" r="2.25"></circle>
+              <circle cx="18" cy="6" r="2.25"></circle>
+              <path d="M8.1 17.2c3.45-1.12 1.7-5.88 5.4-7.02"></path>
+              <path d="M13.5 10.18h3.9V14"></path>
+            </svg>
+          </span>
+          <h3>Travel planning</h3>
+          <p>Routes, documents, comfort timing, and arrival routines are prepared with care.</p>
+        </article>
+        <article class="fact-card">
+          <span class="fact-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M20 8.8c0 5.18-8 10.95-8 10.95S4 13.98 4 8.8a4.35 4.35 0 0 1 7.45-3.08L12 6.3l.55-.58A4.35 4.35 0 0 1 20 8.8Z"></path>
+              <path d="M7.5 12h2.35l1.35-2.3 1.7 4.6 1.28-2.3h2.32"></path>
+            </svg>
+          </span>
+          <h3>Aftercare</h3>
+          <p>Feeding, first nights, grooming, and settling-in questions stay supported after delivery.</p>
+        </article>
       </div>
     </section>
 
-    <section class="section trust-section" aria-labelledby="delivery-preview-title">
+    <section class="section feeding-guide-section" aria-labelledby="feeding-guide-title">
       <div class="section__head reveal">
-        <p class="eyebrow">Delivery preview</p>
-        <h2 id="delivery-preview-title">A calm international handover</h2>
-        <p>From documents to first-night guidance, the process is designed to feel protected and personal.</p>
+        <p class="eyebrow">Feeding Guide</p>
+        <h2 id="feeding-guide-title">Personalized puppy feeding recommendations</h2>
+        <p>Choose your puppy's breed, age, weight, and food type to receive a gentle daily feeding estimate.</p>
       </div>
-      <div class="trust-grid reveal">
-        <article class="trust-card"><span>01</span><h3>Health review</h3><p>Records and readiness notes are checked before reservation.</p></article>
-        <article class="trust-card"><span>02</span><h3>Flight nanny</h3><p>Where possible, hand-carry options keep the trip gentle and supervised.</p></article>
-        <article class="trust-card"><span>03</span><h3>Arrival routine</h3><p>We prepare feeding, sleep, and first-evening guidance for the family.</p></article>
-        <article class="trust-card"><span>04</span><h3>Follow-up</h3><p>Aftercare support helps the puppy settle into a stable rhythm.</p></article>
+      <div class="feeding-guide reveal">
+        <form class="feeding-guide__form" id="feedingGuideForm" novalidate>
+          <label><span>Breed</span><select name="breed"><option>Pomeranian</option><option>Maltipoo</option><option>Yorkshire Terrier</option><option>Chihuahua</option><option>Toy Poodle</option><option>French Bulldog</option><option>Other small breed</option></select></label>
+          <label><span>Age</span><select name="age"><option value="1-2 months">1&ndash;2 months</option><option value="2-3 months">2&ndash;3 months</option><option value="3-6 months">3&ndash;6 months</option><option value="6-12 months">6&ndash;12 months</option><option value="12+ months">12+ months</option></select></label>
+          <label><span>Weight</span><input name="weight" type="number" inputmode="decimal" min="0.3" max="20" step="0.1" placeholder="Example: 1.8" aria-describedby="feedingGuideMessage"></label>
+          <label><span>Food type</span><select name="foodType"><option>Dry food</option><option>Wet food</option><option>Mixed feeding</option></select></label>
+          <label><span>Activity level</span><select name="activity"><option>Low</option><option selected>Normal</option><option>Active</option></select></label>
+          <button class="button button--primary" type="submit">Calculate</button>
+          <p class="feeding-guide__message" id="feedingGuideMessage" role="status">Enter your puppy's weight to see recommendations.</p>
+        </form>
+        <article class="feeding-guide__result" id="feedingGuideResult" aria-live="polite">
+          <p class="eyebrow">Daily estimate</p>
+          <h3 id="feedingGuideResultTitle">Puppy feeding guide</h3>
+          <div class="feeding-guide__amount" id="feedingGuideAmount">
+            <span>Recommended daily amount</span>
+            <strong>Waiting for weight</strong>
+          </div>
+          <div class="feeding-guide__facts">
+            <div><span>Feeding frequency</span><strong id="feedingGuideFrequency">Gentle meal rhythm</strong></div>
+            <div><span>Suggested schedule</span><strong id="feedingGuideSchedule">Based on age</strong></div>
+          </div>
+          <p class="feeding-guide__care-note" id="feedingGuideCareNote">These recommendations are approximate. Always adjust portions based on the puppy's body condition, food brand guidelines, and veterinary advice.</p>
+          <p class="feeding-guide__breed-note" id="feedingGuideBreedNote" hidden></p>
+        </article>
       </div>
     </section>
 

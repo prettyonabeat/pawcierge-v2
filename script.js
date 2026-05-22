@@ -126,18 +126,34 @@ document.addEventListener("keydown", (event) => {
 
 window.requestAnimationFrame(() => document.body.classList.add("page-ready"));
 
-// The intro runs once on the home page and can be dismissed with Skip intro.
+// The intro runs once on the site and can be dismissed with Skip intro.
+const INTRO_SEEN_KEY = "miniMishkiBooIntroSeen";
 const intro = document.querySelector("#intro");
 const skipIntroButton = document.querySelector("#skipIntro");
+const hasSeenIntro = document.documentElement.classList.contains("has-seen-intro");
+
+function markIntroSeen() {
+  try {
+    localStorage.setItem(INTRO_SEEN_KEY, "true");
+    // localStorage.removeItem("miniMishkiBooIntroSeen");
+  } catch (error) {
+    // Storage may be unavailable in restricted browser modes.
+  }
+}
 
 function closeIntro() {
   if (!intro || intro.classList.contains("intro--hidden")) return;
+  markIntroSeen();
   intro.classList.add("intro--hidden");
   window.setTimeout(() => intro.remove(), 900);
 }
 
+if (intro && hasSeenIntro) {
+  intro.remove();
+}
+
 window.addEventListener("load", () => {
-  if (intro) window.setTimeout(closeIntro, 5200);
+  if (intro && !hasSeenIntro) window.setTimeout(closeIntro, 5200);
 });
 
 skipIntroButton?.addEventListener("click", closeIntro);
@@ -651,6 +667,139 @@ function initReviewCarousel() {
 }
 
 initReviewCarousel();
+
+// Home feeding guide gives a gentle portion estimate for small breeds.
+const feedingGuideForm = document.querySelector("#feedingGuideForm");
+const feedingGuideResult = document.querySelector("#feedingGuideResult");
+const feedingGuideResultTitle = document.querySelector("#feedingGuideResultTitle");
+const feedingGuideAmount = document.querySelector("#feedingGuideAmount");
+const feedingGuideFrequency = document.querySelector("#feedingGuideFrequency");
+const feedingGuideSchedule = document.querySelector("#feedingGuideSchedule");
+const feedingGuideMessage = document.querySelector("#feedingGuideMessage");
+const feedingGuideBreedNote = document.querySelector("#feedingGuideBreedNote");
+
+function getFeedingGuideRhythm(age) {
+  if (age === "1-2 months" || age === "2-3 months") {
+    return { frequency: "4 meals per day", schedule: "08:00 / 13:00 / 18:00 / 22:00" };
+  }
+
+  if (age === "3-6 months") {
+    return { frequency: "3-4 meals per day", schedule: "08:00 / 13:00 / 18:00 / 22:00" };
+  }
+
+  if (age === "6-12 months") {
+    return { frequency: "2-3 meals per day", schedule: "08:00 / 14:00 / 20:00" };
+  }
+
+  return { frequency: "2 meals per day", schedule: "08:00 / 19:00" };
+}
+
+function getFeedingGuideFactor(activity) {
+  if (activity === "Low") return 0.9;
+  if (activity === "Active") return 1.1;
+  return 1;
+}
+
+function getFeedingGuideRange(weight, type, isAdult, factor, mixedPortion = false) {
+  const gramsPerKg = {
+    dry: isAdult ? [25, 35] : [45, 60],
+    wet: isAdult ? [60, 90] : [100, 130]
+  }[type];
+  const portionFactor = mixedPortion ? 0.5 : 1;
+  const low = Math.round(weight * gramsPerKg[0] * factor * portionFactor);
+  const high = Math.round(weight * gramsPerKg[1] * factor * portionFactor);
+  return `${low}-${high} g per day`;
+}
+
+function renderFeedingGuideAmount(lines) {
+  if (!feedingGuideAmount) return;
+  const label = document.createElement("span");
+  label.textContent = "Recommended daily amount";
+  feedingGuideAmount.replaceChildren(label);
+
+  lines.forEach((line) => {
+    const value = document.createElement("strong");
+    value.textContent = line;
+    feedingGuideAmount.append(value);
+  });
+}
+
+function resetFeedingGuideResult(message, isError = false) {
+  if (!feedingGuideForm || !feedingGuideMessage) return;
+  feedingGuideForm.classList.toggle("has-error", isError);
+  feedingGuideMessage.classList.toggle("is-error", isError);
+  feedingGuideMessage.textContent = message;
+  if (feedingGuideResultTitle) feedingGuideResultTitle.textContent = "Puppy feeding guide";
+  if (feedingGuideFrequency) feedingGuideFrequency.textContent = "Gentle meal rhythm";
+  if (feedingGuideSchedule) feedingGuideSchedule.textContent = "Based on age";
+  if (feedingGuideBreedNote) feedingGuideBreedNote.hidden = true;
+  renderFeedingGuideAmount(["Waiting for weight"]);
+}
+
+function updateFeedingGuide() {
+  if (!feedingGuideForm) return;
+  const formData = new FormData(feedingGuideForm);
+  const breed = formData.get("breed");
+  const age = formData.get("age");
+  const foodType = formData.get("foodType");
+  const activity = formData.get("activity");
+  const weightField = feedingGuideForm.elements.weight;
+  const rawWeight = weightField?.value.trim() || "";
+  const weight = Number(rawWeight);
+
+  if (!rawWeight) {
+    resetFeedingGuideResult("Enter your puppy's weight to see recommendations.");
+    return;
+  }
+
+  if (!Number.isFinite(weight) || weight < 0.3 || weight > 20) {
+    resetFeedingGuideResult("Please enter a weight between 0.3 and 20 kg.", true);
+    return;
+  }
+
+  const isAdult = age === "12+ months";
+  const factor = getFeedingGuideFactor(activity);
+  const rhythm = getFeedingGuideRhythm(age);
+  const amountLines = foodType === "Mixed feeding"
+    ? [
+        `Dry portion: ${getFeedingGuideRange(weight, "dry", isAdult, factor, true)}`,
+        `Wet portion: ${getFeedingGuideRange(weight, "wet", isAdult, factor, true)}`
+      ]
+    : [`${foodType}: ${getFeedingGuideRange(weight, foodType === "Wet food" ? "wet" : "dry", isAdult, factor)}`];
+
+  feedingGuideForm.classList.remove("has-error");
+  if (feedingGuideMessage) {
+    feedingGuideMessage.classList.remove("is-error");
+    feedingGuideMessage.textContent = foodType === "Mixed feeding"
+      ? "Use around 50% of the dry food range + 50% of the wet food range."
+      : "Estimate updated. Use the chosen food brand guide as a final check.";
+  }
+  if (feedingGuideResultTitle) feedingGuideResultTitle.textContent = `${breed} feeding estimate`;
+  if (feedingGuideFrequency) feedingGuideFrequency.textContent = rhythm.frequency;
+  if (feedingGuideSchedule) feedingGuideSchedule.textContent = rhythm.schedule;
+  if (feedingGuideBreedNote) {
+    const showBreedNote = breed === "French Bulldog" || breed === "Other small breed";
+    feedingGuideBreedNote.hidden = !showBreedNote;
+    feedingGuideBreedNote.textContent = showBreedNote
+      ? "Please adjust portions carefully based on body condition and veterinary advice."
+      : "";
+  }
+  renderFeedingGuideAmount(amountLines);
+
+  if (feedingGuideResult) {
+    feedingGuideResult.classList.remove("is-updated");
+    void feedingGuideResult.offsetWidth;
+    feedingGuideResult.classList.add("is-updated");
+  }
+}
+
+feedingGuideForm?.addEventListener("submit", (event) => {
+  event.preventDefault();
+  updateFeedingGuide();
+});
+
+feedingGuideForm?.addEventListener("input", updateFeedingGuide);
+feedingGuideForm?.addEventListener("change", updateFeedingGuide);
 
 // Puppy Nutrition Match gives gentle, non-medical feeding guidance.
 const nutritionForm = document.querySelector("#nutritionForm");
