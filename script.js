@@ -20,9 +20,9 @@ function renderSiteShell() {
   if (headerHost) {
     headerHost.innerHTML = `
       <header class="site-header" id="top">
-        <a class="brand" href="index.html" aria-label="MiniMishkiBoo">
+        <a class="brand" href="index.html" aria-label="MINIMISHKIBOO">
           <img class="brand__mark" src="${LOGO_PATH}" alt="">
-          <span>MiniMishkiBoo</span>
+          <span>MINIMISHKIBOO</span>
         </a>
         <nav class="nav" aria-label="Main navigation">
           ${desktopLinks.map(([key, label, href]) => `<a class="${pageName === key ? "is-current" : ""}" href="${href}">${label}</a>`).join("")}
@@ -36,9 +36,9 @@ function renderSiteShell() {
           <button class="mobile-menu__backdrop" type="button" aria-label="Close mobile menu" data-menu-close></button>
           <aside class="mobile-menu__panel" aria-label="Mobile navigation">
             <div class="mobile-menu__top">
-              <a class="brand" href="index.html" aria-label="MiniMishkiBoo">
+              <a class="brand" href="index.html" aria-label="MINIMISHKIBOO">
                 <img class="brand__mark" src="${LOGO_PATH}" alt="">
-                <span>MiniMishkiBoo</span>
+                <span>MINIMISHKIBOO</span>
               </a>
               <button class="mobile-menu__close" type="button" aria-label="Close mobile menu" data-menu-close></button>
             </div>
@@ -67,7 +67,7 @@ function renderSiteShell() {
         <div class="footer__brand">
           <a class="brand" href="index.html">
             <img class="brand__mark" src="${LOGO_PATH}" alt="">
-            <span>MiniMishkiBoo</span>
+            <span>MINIMISHKIBOO</span>
           </a>
           <p>Premium Pomeranian breeding and worldwide puppy sourcing with trusted kennels, personal care, and support at every step.</p>
         </div>
@@ -79,7 +79,7 @@ function renderSiteShell() {
         <div class="footer__meta">
           <p>With you since 2008</p>
           <p>Our family is based across different countries around the world.</p>
-          <p>&copy; 2026 MiniMishkiBoo. All rights reserved.</p>
+          <p>&copy; 2026 MINIMISHKIBOO. All rights reserved.</p>
           <nav aria-label="Social links">
             <a href="https://instagram.com/" target="_blank" rel="noreferrer">Instagram</a>
             <a href="https://t.me/" target="_blank" rel="noreferrer">Telegram</a>
@@ -435,7 +435,7 @@ function renderPuppyProfile() {
   const puppy = getPuppies().find((item) => item.id === puppyId) || getPuppies()[0];
   if (!puppy) return;
   activeDetailPuppy = puppy;
-  document.title = `${puppy.name} - ${puppy.breed} | MiniMishkiBoo`;
+  document.title = `${puppy.name} - ${puppy.breed} | MINIMISHKIBOO`;
 
   const similarPuppies = getSimilarPuppies(puppy);
   profile.innerHTML = `
@@ -971,17 +971,17 @@ generateNameButton?.addEventListener("click", generatePuppyName);
 
 // Placeholder for a future Telegram Bot API, n8n webhook, or CRM integration.
 function handleLeadSubmit(lead) {
-  console.info("MiniMishkiBoo lead payload:", lead);
+  console.info("MINIMISHKIBOO lead payload:", lead);
   return Promise.resolve({ ok: true });
 }
 
 function handlePuppyInquiry(inquiry) {
-  console.info("MiniMishkiBoo puppy inquiry:", inquiry);
+  console.info("MINIMISHKIBOO puppy inquiry:", inquiry);
   return Promise.resolve({ ok: true });
 }
 
 function handleSpecialOrderRequest(request) {
-  console.info("MiniMishkiBoo special order request:", request);
+  console.info("MINIMISHKIBOO special order request:", request);
   return Promise.resolve({ ok: true });
 }
 
@@ -1100,5 +1100,5 @@ detailInquiryForm?.addEventListener("submit", async (event) => {
   });
 
   detailInquiryForm.reset();
-  detailFormMessage.textContent = "Thank you. A MiniMishkiBoo advisor will follow up with next steps.";
+  detailFormMessage.textContent = "Thank you. A MINIMISHKIBOO advisor will follow up with next steps.";
 });

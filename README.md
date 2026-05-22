@@ -1,4 +1,4 @@
-# MiniMishkiBoo V2
+# MINIMISHKIBOO V2
 
 A premium dark landing page for a small-breed puppy matching and delivery concierge service. The project uses HTML, CSS, and vanilla JavaScript with no build step.
 
@@ -43,7 +43,7 @@ The card will appear on the site automatically.
 
 1. Upload the project to a GitHub repository.
 2. In Vercel, click `Add New Project`.
-3. Select the MiniMishkiBoo repository.
+3. Select the MINIMISHKIBOO repository.
 4. Leave Framework Preset as `Other`.
 5. Leave Build Command empty.
 6. Leave Output Directory empty or set it to `.`.

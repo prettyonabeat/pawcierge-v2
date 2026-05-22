@@ -3316,9 +3316,9 @@ body.has-detail-open {
   }
 
   .intro__name {
-    font-size: clamp(3rem, 16vw, 5rem);
+    font-size: clamp(2.65rem, 12.5vw, 4.35rem);
     line-height: 1;
-    letter-spacing: 0.025em;
+    letter-spacing: 0.018em;
     text-align: center;
     overflow-wrap: anywhere;
   }
@@ -3361,9 +3361,9 @@ body.has-detail-open {
 
   #hero-title {
     margin-bottom: 18px;
-    font-size: clamp(2.25rem, 10.7vw, 3.55rem);
+    font-size: clamp(2.08rem, 9.6vw, 3.35rem);
     line-height: 0.98;
-    letter-spacing: 0.03em;
+    letter-spacing: 0.024em;
   }
 
   h2 {
@@ -4012,8 +4012,12 @@ body.has-detail-open {
     padding-top: 42px;
   }
 
+  .intro__name {
+    font-size: clamp(2.35rem, 11vw, 3.4rem);
+  }
+
   #hero-title {
-    font-size: clamp(2rem, 10.2vw, 2.45rem);
+    font-size: clamp(1.92rem, 9.2vw, 2.25rem);
   }
 
   .page-hero,
