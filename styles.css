@@ -3697,30 +3697,44 @@ body.has-detail-open {
 
   .contact-hero {
     min-height: auto;
+    padding-top: 78px;
+    padding-bottom: 56px;
   }
 
   .contact-hero__title {
     width: min(100%, calc(100vw - 44px));
-    max-width: 11ch;
-    font-size: clamp(2.58rem, 12.4vw, 3.65rem);
-    line-height: 0.98;
-    letter-spacing: 0.01em;
+    max-width: 100%;
+    margin-bottom: 18px;
+    font-size: clamp(1.44rem, 5.55vw, 1.72rem);
+    line-height: 1.08;
+    letter-spacing: 0.012em;
+  }
+
+  .contact-hero__title span:first-child {
+    display: block;
+    white-space: nowrap;
   }
 
   .contact-hero__title span:last-child {
-    max-width: 10ch;
-    margin-top: 8px;
+    display: block;
+    max-width: 100%;
+    margin-top: 7px;
+    color: var(--text-soft);
+    font-size: clamp(1.18rem, 4.8vw, 1.42rem);
+    font-weight: 500;
+    line-height: 1.12;
+    letter-spacing: 0.018em;
   }
 
   .contact-hero__text {
-    gap: 13px;
+    gap: 12px;
     width: min(100%, calc(100vw - 44px));
-    max-width: 31.5ch;
+    max-width: 33ch;
   }
 
   .contact-hero__text p {
-    font-size: 0.98rem;
-    line-height: 1.72;
+    font-size: 0.96rem;
+    line-height: 1.68;
   }
 
   h1 {
