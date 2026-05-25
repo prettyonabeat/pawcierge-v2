@@ -9,13 +9,13 @@ function renderSiteShell() {
   const links = [
     ["home", "Home", "index.html"],
     ["puppies", "Puppies", "puppies.html"],
-    ["reviews", "Reviews", "reviews.html"],
+    ["client-experience", "Client Experience", "client-experience.html"],
     ["delivery", "Delivery", "delivery.html"],
     ["about", "About", "about.html"],
     ["contact", "Contact", "contact.html"]
   ];
   const desktopLinks = links;
-  const bottomLinks = links.filter(([key]) => ["home", "puppies", "reviews", "delivery", "contact"].includes(key));
+  const bottomLinks = links.filter(([key]) => ["home", "puppies", "client-experience", "delivery", "contact"].includes(key));
 
   if (headerHost) {
     headerHost.innerHTML = `
@@ -622,7 +622,7 @@ document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") closePuppyDetail();
 });
 
-// Reviews carousel with arrows, dots, and swipe support.
+// Legacy testimonial carousel with arrows, dots, and swipe support.
 const reviewTrack = document.querySelector("#reviewsTrack");
 const reviewCards = [...document.querySelectorAll(".review-card")];
 const reviewDots = document.querySelector("#reviewDots");
