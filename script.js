@@ -15,7 +15,9 @@ function renderSiteShell() {
     ["contact", "Contact", "contact.html"]
   ];
   const desktopLinks = links;
-  const bottomLinks = links.filter(([key]) => ["home", "puppies", "client-experience", "delivery", "contact"].includes(key));
+  const bottomLinks = links
+    .filter(([key]) => ["home", "puppies", "client-experience", "delivery", "contact"].includes(key))
+    .map(([key, label, href]) => [key, key === "client-experience" ? "Reviews" : label, href]);
 
   if (headerHost) {
     headerHost.innerHTML = `
@@ -160,8 +162,6 @@ skipIntroButton?.addEventListener("click", closeIntro);
 
 // Render puppy cards from data/puppies.js.
 const puppyGrid = document.querySelector("#puppyGrid");
-const catalogControls = document.querySelector("#catalogControls");
-const catalogCount = document.querySelector("#catalogCount");
 const preferredPuppySelect = document.querySelector("#preferredPuppySelect");
 const puppyDetail = document.querySelector("#puppyDetail");
 const detailPanel = puppyDetail?.querySelector(".puppy-detail__panel");
@@ -186,19 +186,6 @@ function getPuppies() {
   return window.MINIMISHKIBOO_PUPPIES || [];
 }
 
-function populateCatalogFilters() {
-  if (!catalogControls) return;
-  const breedSelect = catalogControls.elements.breed;
-  const breeds = [...new Set(getPuppies().map((puppy) => puppy.breed))].sort();
-
-  breeds.forEach((breed) => {
-    const option = document.createElement("option");
-    option.value = breed;
-    option.textContent = breed;
-    breedSelect.append(option);
-  });
-}
-
 function populatePreferredPuppies() {
   const selects = [...document.querySelectorAll("#preferredPuppySelect, [data-preferred-puppy]")];
   if (!selects.length) return;
@@ -217,38 +204,6 @@ function populatePreferredPuppies() {
       select.value = requested;
     }
   });
-}
-
-function getFilteredPuppies() {
-  const puppies = [...getPuppies()];
-  if (!catalogControls) {
-    return puppies;
-  }
-
-  const formData = new FormData(catalogControls);
-  const breed = formData.get("breed");
-  const gender = formData.get("gender");
-  const age = formData.get("age");
-  const status = formData.get("status");
-  const sort = formData.get("sort");
-
-  const filtered = puppies.filter((puppy) => {
-    const breedMatch = breed === "all" || puppy.breed === breed;
-    const genderMatch = gender === "all" || puppy.gender === gender;
-    const statusMatch = status === "all" || puppy.statusKey === status;
-    const ageMatch = age === "all"
-      || (age === "under3" && puppy.ageMonths < 3)
-      || (age === "3to4" && puppy.ageMonths >= 3 && puppy.ageMonths <= 4)
-      || (age === "over4" && puppy.ageMonths >= 4);
-
-    return breedMatch && genderMatch && statusMatch && ageMatch;
-  });
-
-  if (sort === "priceAsc") filtered.sort((a, b) => a.priceValue - b.priceValue);
-  if (sort === "priceDesc") filtered.sort((a, b) => b.priceValue - a.priceValue);
-  if (sort === "ageAsc") filtered.sort((a, b) => a.ageMonths - b.ageMonths);
-
-  return filtered;
 }
 
 function getSpecialOrderCardMarkup() {
@@ -273,15 +228,11 @@ function getSpecialOrderCardMarkup() {
 
 function renderPuppies() {
   if (!puppyGrid || !getPuppies().length) return;
-  const puppies = getFilteredPuppies();
+  const puppies = getPuppies();
   const specialOrderCard = getSpecialOrderCardMarkup();
 
-  if (catalogCount) {
-    catalogCount.textContent = `${puppies.length} curated ${puppies.length === 1 ? "puppy" : "puppies"} shown`;
-  }
-
   if (!puppies.length) {
-    puppyGrid.innerHTML = `${specialOrderCard}<p class="catalog-empty">No puppies match these filters yet. Send a request and we will curate a private shortlist.</p>`;
+    puppyGrid.innerHTML = `${specialOrderCard}<p class="catalog-empty">No puppies are listed yet. Send a request and we will curate a private shortlist.</p>`;
     return;
   }
 
@@ -581,11 +532,8 @@ function closePuppyDetail() {
   document.body.classList.remove("has-detail-open");
 }
 
-populateCatalogFilters();
 populatePreferredPuppies();
 renderPuppies();
-
-catalogControls?.addEventListener("change", renderPuppies);
 
 puppyGrid?.addEventListener("click", (event) => {
   const detailButton = event.target.closest("[data-puppy-detail]");
