@@ -2,6 +2,43 @@
 const pageName = document.body.dataset.page || "home";
 const LOGO_PATH = "images/Logo/mini.png";
 const SPECIAL_ORDER_IMAGE = "images/Logo/special.jpg";
+const bottomNavIcons = {
+  home: `
+    <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+      <path d="M5.25 11.2 12 5.45l6.75 5.75"></path>
+      <path d="M7.35 10.35v7.7h9.3v-7.7"></path>
+      <path d="M10.15 18.05v-4.45h3.7v4.45"></path>
+    </svg>
+  `,
+  puppies: `
+    <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+      <path d="M8.15 12.25c-1.45.85-2.62 2.05-2.62 3.58 0 1.42 1.1 2.42 2.58 2.42.92 0 1.62-.42 2.25-.78.57-.33 1.08-.63 1.64-.63s1.07.3 1.64.63c.63.36 1.33.78 2.25.78 1.48 0 2.58-1 2.58-2.42 0-1.53-1.17-2.73-2.62-3.58"></path>
+      <path d="M8.05 10.35c1.05 0 1.82-.92 1.82-2.07s-.77-2.08-1.82-2.08-1.82.93-1.82 2.08.77 2.07 1.82 2.07Z"></path>
+      <path d="M15.95 10.35c1.05 0 1.82-.92 1.82-2.07s-.77-2.08-1.82-2.08-1.82.93-1.82 2.08.77 2.07 1.82 2.07Z"></path>
+      <path d="M12 9.5c1.02 0 1.75-.9 1.75-2s-.73-2-1.75-2-1.75.9-1.75 2 .73 2 1.75 2Z"></path>
+    </svg>
+  `,
+  "client-experience": `
+    <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+      <path d="M3.75 12s2.95-5.25 8.25-5.25S20.25 12 20.25 12 17.3 17.25 12 17.25 3.75 12 3.75 12Z"></path>
+      <path d="M12 14.25a2.25 2.25 0 1 0 0-4.5 2.25 2.25 0 0 0 0 4.5Z"></path>
+      <path d="M8.35 19.05c1.05.45 2.25.7 3.65.7s2.6-.25 3.65-.7"></path>
+    </svg>
+  `,
+  delivery: `
+    <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+      <path d="M12 20.2s5.15-5.62 5.15-9.58A5.15 5.15 0 0 0 6.85 10.62C6.85 14.58 12 20.2 12 20.2Z"></path>
+      <path d="M12 12.65a2.05 2.05 0 1 0 0-4.1 2.05 2.05 0 0 0 0 4.1Z"></path>
+      <path d="M8.25 20.25h7.5"></path>
+    </svg>
+  `,
+  contact: `
+    <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+      <path d="M5.25 6.75h13.5v9.85H8.85l-3.6 2.65V6.75Z"></path>
+      <path d="m7.2 8.95 4.8 3.55 4.8-3.55"></path>
+    </svg>
+  `
+};
 
 function renderSiteShell() {
   const headerHost = document.querySelector("[data-site-header]");
@@ -55,7 +92,7 @@ function renderSiteShell() {
       <nav class="bottom-nav" aria-label="Mobile bottom navigation">
         ${bottomLinks.map(([key, label, href]) => `
           <a class="bottom-nav__link ${pageName === key ? "is-current" : ""}" href="${href}" aria-label="${label}" ${pageName === key ? 'aria-current="page"' : ""}>
-            <span class="bottom-nav__icon" aria-hidden="true"></span>
+            <span class="bottom-nav__icon" aria-hidden="true">${bottomNavIcons[key]}</span>
             <span>${label}</span>
           </a>
         `).join("")}
